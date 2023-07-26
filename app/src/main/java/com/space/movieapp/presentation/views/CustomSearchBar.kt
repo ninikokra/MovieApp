@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import com.google.android.material.chip.Chip
 import com.space.movieapp.R
 import com.space.movieapp.databinding.CustomSearchBarBinding
 import com.space.movieapp.utils.isVisible
@@ -16,18 +17,14 @@ class CustomSearchBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val binding: CustomSearchBarBinding =
+    private val binding by lazy {
         CustomSearchBarBinding.inflate(LayoutInflater.from(context), this, true)
-
+    }
     private var isSearchButtonActive = false
-    private var isTopRatedSelected = false
-    private var isPopularSelected = false
 
     init {
         setupSearchBarEditText()
         setupSearchSelectionButton()
-        setTopRateMovies()
-        setPopularMovies()
     }
 
     private fun setupSearchBarEditText() {
@@ -49,56 +46,12 @@ class CustomSearchBar @JvmOverloads constructor(
 
                 if (isSearchButtonActive) {
                     searchSelectionButton.setBackgroundResource(R.drawable.ic_selected_search)
-                    genresBox.isVisible(true)
+                    genresChipGroup.isVisible(true)
                 } else {
                     searchSelectionButton.setBackgroundResource(R.drawable.ic_unselected_search)
-                    genresBox.isVisible(false)
+                    genresChipGroup.isVisible(false)
                 }
             }
         }
     }
-
-    private fun setTopRateMovies() {
-        binding.topRatedMoviesTextView.setOnClickListener {
-            if (!isTopRatedSelected) {
-
-                isTopRatedSelected = true
-                isPopularSelected = false
-
-                updateSelectedGenreDesign()
-            }
-        }
-    }
-
-    private fun setPopularMovies() {
-        binding.popularMoviesTextView.setOnClickListener {
-            if (!isPopularSelected) {
-
-                isPopularSelected = true
-                isTopRatedSelected = false
-
-                updateSelectedGenreDesign()
-            }
-        }
-    }
-
-    private fun updateSelectedGenreDesign() {
-        with(binding) {
-            topRatedMoviesTextView.setBackgroundResource(if (isTopRatedSelected) R.drawable.text_shape_yellow else R.drawable.text_shape)
-            topRatedMoviesTextView.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    if (isTopRatedSelected) R.color.neutral_01_black else R.color.neutral_08_whisper
-                )
-            )
-            popularMoviesTextView.setBackgroundResource(if (isPopularSelected) R.drawable.text_shape_yellow else R.drawable.text_shape)
-            popularMoviesTextView.setTextColor(
-                ContextCompat.getColor(
-                    context,
-                    if (isPopularSelected) R.color.neutral_01_black else R.color.neutral_08_whisper
-                )
-            )
-        }
-    }
-
 }

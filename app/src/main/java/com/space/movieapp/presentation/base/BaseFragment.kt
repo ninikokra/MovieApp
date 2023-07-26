@@ -13,15 +13,13 @@ import kotlin.reflect.KClass
 
 typealias Inflater<VB> = (inflater: LayoutInflater, container: ViewGroup, attachToRoot: Boolean) -> VB
 
-abstract class BaseFragment<VB : ViewBinding,VM: ViewModel> : Fragment() {
+abstract class BaseFragment<VM : ViewModel> : Fragment() {
 
-   /* protected val viewModel: VM by viewModelForClass(clazz = viewModelClass)
-    abstract val viewModelClass: KClass<VM>*/
+    /* protected val viewModel: VM by viewModelForClass(clazz = viewModelClass)
+     abstract val viewModelClass: KClass<VM>*/
 
-    private var _binding: VB? = null
-    protected val binding get() = _binding!!
+    protected abstract val layout: Int
 
-    abstract fun inflate(): Inflater<VB>
     abstract fun onBind()
 
     override fun onCreateView(
@@ -29,18 +27,11 @@ abstract class BaseFragment<VB : ViewBinding,VM: ViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = this.inflate().invoke(inflater, container!!, false)
-        return binding.root
+        return inflater.inflate(layout, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onBind()
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

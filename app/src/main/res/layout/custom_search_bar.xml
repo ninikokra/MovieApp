@@ -14,9 +14,9 @@
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/dimen_10dp"
         android:hint="@string/search_text"
-        android:textColor="@color/neutral_08_whisper"
         android:paddingHorizontal="@dimen/dimen_20dp"
         android:paddingVertical="@dimen/dimen_10dp"
+        android:textColor="@color/neutral_08_whisper"
         android:textColorHint="@color/neutral_05_light_grey"
         android:textSize="@dimen/dimen_14sp"
         app:layout_constraintEnd_toStartOf="@+id/searchSelectionButton"
@@ -34,43 +34,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/searchBarEditText" />
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/genresBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="topRatedMoviesTextView,popularMoviesTextView" />
-
-
-    <TextView
-        android:id="@+id/popularMoviesTextView"
-        android:layout_width="0dp"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/genresChipGroup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dimen_20dp"
-        android:layout_marginTop="@dimen/dimen_10dp"
-        android:background="@drawable/text_shape_yellow"
-        android:paddingHorizontal="@dimen/dimen_14dp"
-        android:paddingVertical="@dimen/dimen_6dp"
-        android:text="Popular Movies"
-        android:textAlignment="center"
-        android:textColor="@color/neutral_01_black"
-        android:textSize="@dimen/dimen_12sp"
+        android:layout_marginTop="@dimen/dimen_5dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBarEditText" />
+        app:layout_constraintTop_toBottomOf="@id/searchBarEditText"
+        app:singleSelection="true">
 
-    <TextView
-        android:id="@+id/topRatedMoviesTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dimen_5dp"
-        android:layout_marginTop="@dimen/dimen_10dp"
-        android:background="@drawable/text_shape"
-        android:paddingHorizontal="@dimen/dimen_14dp"
-        android:paddingVertical="@dimen/dimen_6dp"
-        android:text="Top Rated Movies"
-        android:textAlignment="center"
-        android:textColor="@color/neutral_08_whisper"
-        android:textSize="@dimen/dimen_12sp"
-        app:layout_constraintStart_toEndOf="@+id/popularMoviesTextView"
-        app:layout_constraintTop_toBottomOf="@+id/searchBarEditText" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/popularMoviesChip"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/popular_movies_text"
+            android:textColor="@color/chip_text_color"
+            app:chipBackgroundColor="@color/chip_background"
+            app:chipStrokeColor="@color/chip_text_color"
+            app:chipStrokeWidth="@dimen/dimen_1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/topRatedMoviesChip"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/top_rated_movies_text"
+            android:textColor="@color/chip_text_color"
+            app:chipBackgroundColor="@color/chip_background"
+            app:chipStrokeColor="@color/chip_text_color"
+            app:chipStrokeWidth="@dimen/dimen_1dp" />
+    </com.google.android.material.chip.ChipGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

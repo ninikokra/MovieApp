@@ -9,39 +9,47 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.google.android.material.button.MaterialButton
 import com.space.movieapp.R
 import com.space.movieapp.databinding.CustomBottomNavBinding
+import com.space.movieapp.utils.getColorCompat
 
 class CustomBottomNavigation @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val binding: CustomBottomNavBinding =
+    private val binding by lazy {
         CustomBottomNavBinding.inflate(LayoutInflater.from(context), this, true)
-
-    private var clickListener: BottomNavigationClickListener? = null
+    }
+    private var onHomeButtonClicked: (() -> Unit)? = null
+    private var onFavoritesButtonClicked: (() -> Unit)? = null
 
     init {
         setupButtonListeners()
     }
 
-    fun setBottomNavigationClickListener(listener: BottomNavigationClickListener) {
-        clickListener = listener
+    fun setOnHomeButtonClicked(listener: () -> Unit) {
+        onHomeButtonClicked = listener
+    }
+
+    fun setOnFavoritesButtonClicked(listener: () -> Unit) {
+        onFavoritesButtonClicked = listener
     }
 
     private fun setupButtonListeners() {
         binding.homeBottomButton.setOnClickListener {
-            clickListener?.onHomeButtonClicked()
-            //updateButtonStates(true)
+            onHomeButtonClicked?.invoke()
+            updateButtonStates(true)
         }
 
         binding.favoriteBottomButton.setOnClickListener {
-            clickListener?.onFavoritesButtonClicked()
-           // updateButtonStates(false)
+            onFavoritesButtonClicked?.invoke()
+            updateButtonStates(false)
         }
     }
 
     fun updateButtonStates(isHomeSelected: Boolean) {
-        binding.homeBottomButton.updateButtonDesign(isHomeSelected)
-        binding.favoriteBottomButton.updateButtonDesign(!isHomeSelected)
+        with(binding){
+            homeBottomButton.updateButtonDesign(isHomeSelected)
+            favoriteBottomButton.updateButtonDesign(!isHomeSelected)
+        }
     }
 
     private fun MaterialButton.updateButtonDesign(isSelected: Boolean) {
@@ -57,17 +65,17 @@ class CustomBottomNavigation @JvmOverloads constructor(
 
     private fun selectedButtonDesign(): ButtonColors {
         return ButtonColors(
-            backgroundTint = ContextCompat.getColor(context, R.color.yellow_primary),
-            textColor = ContextCompat.getColor(context, R.color.neutral_01_black),
-            iconColor = ContextCompat.getColor(context, R.color.neutral_01_black)
+            backgroundTint = context.getColorCompat(R.color.yellow_primary),
+            textColor = context.getColorCompat(R.color.neutral_01_black),
+            iconColor = context.getColorCompat(R.color.neutral_01_black)
         )
     }
 
     private fun unSelectedButtonDesign(): ButtonColors {
         return ButtonColors(
-            backgroundTint = ContextCompat.getColor(context, R.color.neutral_02_darkest_grey),
-            textColor = ContextCompat.getColor(context, R.color.neutral_08_whisper),
-            iconColor = ContextCompat.getColor(context, R.color.neutral_08_whisper)
+            backgroundTint = context.getColorCompat(R.color.neutral_02_darkest_grey),
+            textColor = context.getColorCompat(R.color.neutral_08_whisper),
+            iconColor = context.getColorCompat(R.color.neutral_08_whisper)
         )
     }
 
@@ -77,4 +85,3 @@ class CustomBottomNavigation @JvmOverloads constructor(
         val iconColor: Int
     )
 }
-
