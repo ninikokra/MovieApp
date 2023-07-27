@@ -6,9 +6,13 @@ import androidx.navigation.fragment.findNavController
 import com.space.movieapp.R
 import com.space.movieapp.databinding.FragmentSplashBinding
 import com.space.movieapp.presentation.base.BaseFragment
+import com.space.movieapp.presentation.favorites.vm.FavoritesViewModel
 import com.space.movieapp.utils.viewBinding
+import kotlin.reflect.KClass
 
 class SplashFragment : BaseFragment<SplashScreenViewModel>() {
+    override val viewModelClass: KClass<SplashScreenViewModel>
+        get() = SplashScreenViewModel::class
 
     private val binding by viewBinding(FragmentSplashBinding::bind)
     override val layout: Int

@@ -9,14 +9,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.space.movieapp.utils.lifecycleScope
+import com.space.movieapp.utils.navigation.NavigationCommand
+import org.koin.androidx.viewmodel.ext.android.viewModelForClass
 import kotlin.reflect.KClass
 
 typealias Inflater<VB> = (inflater: LayoutInflater, container: ViewGroup, attachToRoot: Boolean) -> VB
 
-abstract class BaseFragment<VM : ViewModel> : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
-    /* protected val viewModel: VM by viewModelForClass(clazz = viewModelClass)
-     abstract val viewModelClass: KClass<VM>*/
+    protected val viewModel: VM by viewModelForClass(clazz = viewModelClass)
+    abstract val viewModelClass: KClass<VM>
 
     protected abstract val layout: Int
 
@@ -33,5 +36,20 @@ abstract class BaseFragment<VM : ViewModel> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onBind()
+    }
+
+    private fun observeNavigation() {
+        lifecycleScope {
+            viewModel.navigation.collect { navigationCommand ->
+                handleNavigation(navigationCommand)
+            }
+        }
+    }
+
+    private fun handleNavigation(navCommand: NavigationCommand) {
+        when (navCommand) {
+            is NavigationCommand.ToDirection -> findNavController().navigate(navCommand.directions)
+            is NavigationCommand.Back -> findNavController().navigateUp()
+        }
     }
 }

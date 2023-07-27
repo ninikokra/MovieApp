@@ -12,9 +12,14 @@ import com.space.movieapp.databinding.FragmentFavoritesBinding
 import com.space.movieapp.presentation.base.BaseFragment
 import com.space.movieapp.presentation.base.Inflater
 import com.space.movieapp.presentation.details.vm.DetailsViewModel
+import com.space.movieapp.presentation.favorites.vm.FavoritesViewModel
 import com.space.movieapp.utils.viewBinding
+import kotlin.reflect.KClass
 
 class DetailsFragment : BaseFragment<DetailsViewModel>() {
+
+    override val viewModelClass: KClass<DetailsViewModel>
+        get() = DetailsViewModel::class
 
     private val binding by viewBinding(FragmentDetailsBinding::bind)
     override val layout: Int

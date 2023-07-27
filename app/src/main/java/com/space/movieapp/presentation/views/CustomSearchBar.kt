@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -52,6 +53,18 @@ class CustomSearchBar @JvmOverloads constructor(
                     genresChipGroup.isVisible(false)
                 }
             }
+        }
+    }
+
+    fun setPopularMoviesChipClickListener(listener: () -> Unit) {
+        binding.popularMoviesChip.setOnClickListener {
+            listener.invoke()
+        }
+    }
+
+    fun setTopRatedMoviesChipClickListener(listener: () -> Unit) {
+        binding.topRatedMoviesChip.setOnClickListener {
+            listener.invoke()
         }
     }
 }

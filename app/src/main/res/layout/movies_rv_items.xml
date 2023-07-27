@@ -2,20 +2,22 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/dimen_10dp"
     android:layout_marginBottom="@dimen/dimen_10dp">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/posterImageView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/bkg_poster"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/genreOnPosterTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_10dp"
@@ -25,19 +27,21 @@
         android:textAlignment="center"
         android:textColor="@color/neutral_01_black"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/posterImageView"
+        app:layout_constraintTop_toTopOf="@+id/posterImageView" />
 
     <TextView
         android:id="@+id/movieTitleTextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/dimen_10dp"
         android:layout_marginTop="@dimen/dimen_5dp"
+        android:layout_marginEnd="@dimen/dimen_30dp"
         android:text="Don't Look Up"
         android:textColor="@color/neutral_08_whisper"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintEnd_toStartOf="@+id/setFavoriteHeartIcon"
+        app:layout_constraintStart_toStartOf="@+id/posterImageView"
+        app:layout_constraintTop_toBottomOf="@+id/posterImageView" />
 
     <TextView
         android:id="@+id/releasedYearTextview"
@@ -54,10 +58,11 @@
         app:layout_constraintTop_toBottomOf="@+id/movieTitleTextview" />
 
     <ImageView
+        android:id="@+id/setFavoriteHeartIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:src="@drawable/ic_little_yellow_heart_shape"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/posterImageView"
+        app:layout_constraintTop_toBottomOf="@+id/posterImageView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

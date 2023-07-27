@@ -1,17 +1,12 @@
-package com.space.movieapp
+package com.space.movieapp.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.window.SplashScreen
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.space.movieapp.R
 import com.space.movieapp.databinding.ActivityMoviesBinding
-import com.space.movieapp.presentation.favorites.ui.FavoritesFragment
-import com.space.movieapp.presentation.home.ui.HomeFragment
-import com.space.movieapp.presentation.splash_screen.SplashFragment
-import com.space.movieapp.presentation.views.CustomBottomNavigation
 import com.space.movieapp.utils.viewBinding
 
 class MoviesActivity : AppCompatActivity() {
@@ -26,6 +21,7 @@ class MoviesActivity : AppCompatActivity() {
         navigationToUI()
         setBottomNavClicks()
         supportActionBar?.hide()
+
     }
 
     private fun setBottomNavClicks() {
