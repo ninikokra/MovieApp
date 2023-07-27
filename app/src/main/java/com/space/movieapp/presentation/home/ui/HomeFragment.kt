@@ -6,7 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.space.movieapp.R
 import com.space.movieapp.databinding.FragmentHomeBinding
-import com.space.movieapp.presentation.adapter.MoviesPagingAdapter
+import com.space.movieapp.presentation.home.adapter.MoviesPagingAdapter
 import com.space.movieapp.presentation.base.BaseFragment
 import com.space.movieapp.presentation.home.vm.HomeViewModel
 import com.space.movieapp.presentation.views.LoadStateDialog

@@ -11,9 +11,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
-
-
-
 /** Activity binding delegate, may be used since onCreate up to onDestroy (inclusive) */
 inline fun <T : ViewBinding> AppCompatActivity.viewBinding(crossinline factory: (LayoutInflater) -> T) =
     lazy(LazyThreadSafetyMode.NONE) {

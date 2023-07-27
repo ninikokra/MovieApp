@@ -1,4 +1,4 @@
-package com.space.movieapp.presentation.adapter
+package com.space.movieapp.presentation.home.adapter
 
 import android.util.Log
 import android.view.ViewGroup
