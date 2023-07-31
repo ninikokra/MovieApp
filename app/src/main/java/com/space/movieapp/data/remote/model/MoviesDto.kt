@@ -1,6 +1,5 @@
 package com.space.movieapp.data.remote.model
 
-
 import com.google.gson.annotations.SerializedName
 
 data class MoviesDto(
@@ -43,7 +42,5 @@ data class MoviesDto(
         @SerializedName("vote_count")
         val voteCount: Int
     )
-
-
 }
 

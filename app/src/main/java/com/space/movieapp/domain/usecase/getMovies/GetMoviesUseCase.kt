@@ -8,14 +8,15 @@ import kotlinx.coroutines.flow.Flow
 
 class GetMoviesUseCase(
     private val moviesRepository: MoviesRepository
-) : BaseUseCase<GetMoviesUseCase.Params, Flow<PagingData<MoviesDomainModel>>>() {
+) : BaseUseCase<GetMoviesUseCase.Params, Flow<PagingData<MoviesDomainModel.ResultDomain>>>() {
 
+    //todo
     data class Params(
         val category: String,
         val page: Int,
     )
 
-    override suspend fun invoke(params: Params?): Flow<PagingData<MoviesDomainModel>> {
+    override suspend fun invoke(params: Params?): Flow<PagingData<MoviesDomainModel.ResultDomain>> {
         if (params == null) {
             throw IllegalArgumentException()
         }

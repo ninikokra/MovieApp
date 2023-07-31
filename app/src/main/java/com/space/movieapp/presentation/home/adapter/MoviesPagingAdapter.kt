@@ -1,17 +1,14 @@
 package com.space.movieapp.presentation.home.adapter
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.space.movieapp.R
-import com.space.movieapp.data.remote.network_utils.NetworkKeys.IMAGE_URL
 import com.space.movieapp.databinding.MoviesRvItemsBinding
-import com.space.movieapp.domain.model.MoviesDomainModel
+import com.space.movieapp.presentation.data.model.MoviesUIModel
 import com.space.movieapp.utils.*
 
 class MoviesPagingAdapter :
-    PagingDataAdapter<MoviesDomainModel, MoviesPagingAdapter.MovieViewHolder>(DiffCallback()) {
+    PagingDataAdapter<MoviesUIModel.ResultUI, MoviesPagingAdapter.MovieViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(parent.viewBinding(MoviesRvItemsBinding::inflate))
@@ -25,11 +22,11 @@ class MoviesPagingAdapter :
 
     class MovieViewHolder(private val binding: MoviesRvItemsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MoviesDomainModel) {
+        fun bind(movie: MoviesUIModel.ResultUI) {
             with(binding) {
                 movieTitleTextview.text = movie.title
-                releasedYearTextview.text = movie.releaseDate
-                posterImageView.setImage(IMAGE_URL + movie.poster)
+                releasedYearTextview.text = movie.getFormattedReleaseDate()
+                posterImageView.setImage(movie.getFullPosterUrl())
                 setFavoriteHeartIcon.setOnClickListener {
                     setFavoriteHeartIcon.toggleFavoriteHeartIcons()
                 }
