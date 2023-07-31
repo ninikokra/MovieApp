@@ -1,14 +1,13 @@
 package com.space.movieapp.presentation.base
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import com.space.movieapp.utils.navigation.NavigationCommand
-import com.space.movieapp.utils.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import com.space.movieapp.utils.viewModelScope
 
-abstract class BaseViewModel: ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
     private val _navigation = MutableSharedFlow<NavigationCommand>()
     val navigation: SharedFlow<NavigationCommand> get() = _navigation

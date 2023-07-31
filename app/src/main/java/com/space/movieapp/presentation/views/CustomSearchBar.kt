@@ -45,13 +45,20 @@ class CustomSearchBar @JvmOverloads constructor(
             searchSelectionButton.setOnClickListener {
                 isSearchButtonActive = !isSearchButtonActive
 
-                if (isSearchButtonActive) {
+                genresChipGroup.isVisible(isSearchButtonActive)
+                    searchSelectionButton.setBackgroundResource(if (isSearchButtonActive){
+                        R.drawable.ic_selected_search
+                    } else{
+                        R.drawable.ic_unselected_search
+                    })
+
+              /*  if (isSearchButtonActive) {
                     searchSelectionButton.setBackgroundResource(R.drawable.ic_selected_search)
                     genresChipGroup.isVisible(true)
                 } else {
                     searchSelectionButton.setBackgroundResource(R.drawable.ic_unselected_search)
                     genresChipGroup.isVisible(false)
-                }
+                }*/
             }
         }
     }

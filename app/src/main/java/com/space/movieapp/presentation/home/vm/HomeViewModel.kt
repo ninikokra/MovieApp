@@ -6,6 +6,7 @@ import androidx.paging.cachedIn
 import com.space.movieapp.domain.model.MoviesDomainModel
 import com.space.movieapp.domain.usecase.getMovies.GetMoviesUseCase
 import com.space.movieapp.presentation.base.BaseViewModel
+import com.space.movieapp.presentation.home.ui.HomeFragmentDirections
 import kotlinx.coroutines.flow.Flow
 
 class HomeViewModel(private val getMoviesUseCase: GetMoviesUseCase) : BaseViewModel() {
@@ -13,5 +14,9 @@ class HomeViewModel(private val getMoviesUseCase: GetMoviesUseCase) : BaseViewMo
     suspend fun getMovies(category: String, pageSize: Int): Flow<PagingData<MoviesDomainModel>> {
         return getMoviesUseCase.invoke(GetMoviesUseCase.Params(category, pageSize))
             .cachedIn(viewModelScope)
+    }
+
+     fun navigationToFav() {
+        navigate(HomeFragmentDirections.actionHomeFragmentToFavoritesFragment())
     }
 }

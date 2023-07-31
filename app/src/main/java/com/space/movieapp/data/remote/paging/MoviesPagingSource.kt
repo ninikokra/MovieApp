@@ -20,7 +20,7 @@ class MoviesPagingSource(
                         id = resultDto.id,
                         title = resultDto.title,
                         rating = resultDto.voteAverage,
-                        poster = IMAGE_URL + resultDto.posterPath,
+                        poster = resultDto.posterPath,
                         releaseDate = resultDto.releaseDate.dropLast(6)
                     )
                 } ?: emptyList()

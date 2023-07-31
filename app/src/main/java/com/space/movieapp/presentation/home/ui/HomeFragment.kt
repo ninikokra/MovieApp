@@ -10,6 +10,7 @@ import com.space.movieapp.presentation.home.adapter.MoviesPagingAdapter
 import com.space.movieapp.presentation.base.BaseFragment
 import com.space.movieapp.presentation.home.vm.HomeViewModel
 import com.space.movieapp.presentation.views.LoadStateDialog
+import com.space.movieapp.utils.MovieCategory
 import com.space.movieapp.utils.viewBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -32,8 +33,8 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     override fun onBind() {
         navigationToFav()
         initRecyclerView()
-        setPopularOrNot()
-        observeMoviesByType(POPULAR)
+        setFilter()
+        observeMoviesByType(MovieCategory.POPULAR)
     }
 
     private fun initRecyclerView() {
@@ -42,7 +43,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
     }
 
-    private fun observeMoviesByType(movieType: String) {
+    private fun observeMoviesByType(movieType: MovieCategory) {
         if (loadStateDialog == null) {
             loadStateDialog = LoadStateDialog(requireContext())
             loadStateDialog?.setCancelable(false)
@@ -69,32 +70,27 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
 
         lifecycleScope.launch {
-            viewModel.getMovies(movieType, PAGE_SIZE).collectLatest { pagingData ->
+            viewModel.getMovies(movieType.value, PAGE_SIZE).collectLatest { pagingData ->
                 moviesPagingAdapter.submitData(pagingData)
             }
         }
     }
 
-    private fun setPopularOrNot() {
+    private fun setFilter() {
         with(binding) {
             customSearchView.setPopularMoviesChipClickListener {
-                observeMoviesByType(POPULAR)
+                observeMoviesByType(MovieCategory.POPULAR)
             }
 
             customSearchView.setTopRatedMoviesChipClickListener {
-                observeMoviesByType(TOP_RATED)
+                observeMoviesByType(MovieCategory.TOP_RATED)
             }
         }
     }
+
     private fun navigationToFav() {
         binding.movieTextview.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
+            viewModel.navigationToFav()
         }
     }
-
-    companion object {
-        const val POPULAR = "movie/popular"
-        const val TOP_RATED = "movie/top_rated"
-    }
 }
-

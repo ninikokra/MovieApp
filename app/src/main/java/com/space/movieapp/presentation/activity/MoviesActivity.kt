@@ -2,11 +2,11 @@ package com.space.movieapp.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.space.movieapp.R
 import com.space.movieapp.databinding.ActivityMoviesBinding
+import com.space.movieapp.utils.isVisible
 import com.space.movieapp.utils.viewBinding
 
 class MoviesActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class MoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        navigationToUI()
+        setUpNavigation()
         setBottomNavClicks()
         supportActionBar?.hide()
 
@@ -36,7 +36,7 @@ class MoviesActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigationToUI() {
+    private fun setUpNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
         navController = navHostFragment.navController
@@ -50,6 +50,6 @@ class MoviesActivity : AppCompatActivity() {
             R.id.homeFragment, R.id.favoritesFragment -> true
             else -> false
         }
-        binding.customBottomNav.visibility = if (showBottomNav) View.VISIBLE else View.GONE
+        binding.customBottomNav.isVisible(showBottomNav)
     }
 }
