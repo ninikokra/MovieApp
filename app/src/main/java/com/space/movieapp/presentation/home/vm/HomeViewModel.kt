@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.space.movieapp.data.remote.model.GetMoviesParams
 import com.space.movieapp.domain.usecase.getMovies.GetMoviesUseCase
 import com.space.movieapp.presentation.base.BaseViewModel
 import com.space.movieapp.presentation.data.mapper.MoviesDomainUIMapper
@@ -17,8 +18,9 @@ class HomeViewModel(
     private val moviesDomainUIMapper: MoviesDomainUIMapper
 ) : BaseViewModel() {
 
-    suspend fun getMovies(category: String, pageSize: Int): Flow<PagingData<MoviesUIModel.ResultUI>> {
-        return getMoviesUseCase.invoke(GetMoviesUseCase.Params(category, pageSize))
+    suspend fun getMovies(category: String, page: Int): Flow<PagingData<MoviesUIModel.ResultUI>> {
+        val params = GetMoviesParams(category, page)
+        return getMoviesUseCase(params)
             .map { pagingData -> pagingData.map { moviesDomainUIMapper.invoke(it) } }
             .cachedIn(viewModelScope)
     }
