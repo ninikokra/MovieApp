@@ -13,7 +13,7 @@ class MoviesDtoToDomainMapper :
                 title = title,
                 adult = adult,
                 backdropPath = backdropPath,
-                genreIds = genreIds,
+                genreIds = genreIds.map { it.toString() },
                 originalLanguage = originalLanguage,
                 originalTitle = originalTitle,
                 overview = overview,

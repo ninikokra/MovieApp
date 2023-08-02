@@ -21,7 +21,7 @@ class MoviesDomainUIMapper : BaseMapper<MoviesDomainModel.ResultDomain, MoviesUI
                 releaseDate = releaseDate,
                 video = video,
                 voteAverage = voteAverage,
-                voteCount = voteCount
+                voteCount = voteCount,
             )
         }
     }

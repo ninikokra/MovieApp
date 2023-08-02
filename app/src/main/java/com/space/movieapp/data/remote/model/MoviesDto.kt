@@ -11,7 +11,7 @@ data class MoviesDto(
     val totalPages: Int,
     @SerializedName("total_results")
     val totalResults: Int
-){
+) {
     data class ResultDto(
         @SerializedName("adult")
         val adult: Boolean,
@@ -40,7 +40,6 @@ data class MoviesDto(
         @SerializedName("vote_average")
         val voteAverage: Double,
         @SerializedName("vote_count")
-        val voteCount: Int
+        val voteCount: Int,
     )
 }
-

@@ -12,7 +12,7 @@ class MoviesUIModel(
     data class ResultUI(
         val adult: Boolean,
         val backdropPath: String,
-        val genreIds: List<Int>,
+        val genreIds: List<String>,
         val originalLanguage: String,
         val originalTitle: String,
         val overview: String,
@@ -23,7 +23,7 @@ class MoviesUIModel(
         val voteCount: Int,
         val id: Int,
         val title: String,
-        val releaseDate: String
+        val releaseDate: String,
     ){
         private fun getImageUrl(posterPath: String): String {
             return NetworkKeys.IMAGE_URL + posterPath

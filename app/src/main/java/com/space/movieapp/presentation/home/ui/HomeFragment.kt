@@ -1,8 +1,8 @@
 package com.space.movieapp.presentation.home.ui
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.space.movieapp.R
 import com.space.movieapp.databinding.FragmentHomeBinding
@@ -53,6 +53,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                 when (loadStates.refresh) {
                     is LoadState.Loading -> {
                         loadStateDialog?.showProgressBar()
+
                     }
                     is LoadState.Error -> {
                         loadStateDialog?.apply {

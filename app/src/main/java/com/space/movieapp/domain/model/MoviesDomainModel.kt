@@ -11,7 +11,7 @@ data class MoviesDomainModel(
     data class ResultDomain(
         val adult: Boolean,
         val backdropPath: String,
-        val genreIds: List<Int>,
+        val genreIds: List<String>,
         val originalLanguage: String,
         val originalTitle: String,
         val overview: String,
@@ -22,6 +22,6 @@ data class MoviesDomainModel(
         val voteCount: Int,
         val id: Int,
         val title: String,
-        val releaseDate: String
+        val releaseDate: String,
     )
 }

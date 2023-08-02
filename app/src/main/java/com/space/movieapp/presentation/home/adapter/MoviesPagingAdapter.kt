@@ -27,9 +27,13 @@ class MoviesPagingAdapter :
                 movieTitleTextview.text = movie.title
                 releasedYearTextview.text = movie.getFormattedReleaseDate()
                 posterImageView.setImage(movie.getFullPosterUrl())
+                genreOnPosterTextView.text = movie.genreIds.first()
+
+
                 setFavoriteHeartIcon.setOnClickListener {
                     setFavoriteHeartIcon.toggleFavoriteHeartIcons()
                 }
+
             }
         }
     }
