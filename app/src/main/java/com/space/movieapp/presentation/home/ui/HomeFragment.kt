@@ -8,6 +8,8 @@ import com.space.movieapp.R
 import com.space.movieapp.databinding.FragmentHomeBinding
 import com.space.movieapp.presentation.home.adapter.MoviesPagingAdapter
 import com.space.movieapp.presentation.base.BaseFragment
+import com.space.movieapp.presentation.data.model.MoviesUIModel
+import com.space.movieapp.presentation.home.adapter.FavoriteIconClickListener
 import com.space.movieapp.presentation.home.vm.HomeViewModel
 import com.space.movieapp.presentation.views.LoadStateDialog
 import com.space.movieapp.utils.MovieCategory
@@ -16,7 +18,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
-class HomeFragment : BaseFragment<HomeViewModel>() {
+class HomeFragment : BaseFragment<HomeViewModel>(), FavoriteIconClickListener {
 
     override val viewModelClass: KClass<HomeViewModel>
         get() = HomeViewModel::class
@@ -58,6 +60,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                     is LoadState.Error -> {
                         loadStateDialog?.apply {
                             showErrorDialog()
+
                             setRefreshButton {
                                 moviesPagingAdapter.retry()
                             }
@@ -92,6 +95,12 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     private fun navigationToFav() {
         binding.movieTextview.setOnClickListener {
             viewModel.navigationToFav()
+        }
+    }
+
+    override fun onFavoriteIconClick(movie: MoviesUIModel.ResultUI) {
+        lifecycleScope.launch {
+            //viewModel.toggleFavoriteStatus(movie)
         }
     }
 }

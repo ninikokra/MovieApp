@@ -10,6 +10,7 @@ import com.space.movieapp.utils.*
 class MoviesPagingAdapter :
     PagingDataAdapter<MoviesUIModel.ResultUI, MoviesPagingAdapter.MovieViewHolder>(DiffCallback()) {
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(parent.viewBinding(MoviesRvItemsBinding::inflate))
     }
@@ -24,14 +25,16 @@ class MoviesPagingAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MoviesUIModel.ResultUI) {
             with(binding) {
+                var favoriteIconClickListener: FavoriteIconClickListener? = null
+
                 movieTitleTextview.text = movie.title
                 releasedYearTextview.text = movie.getFormattedReleaseDate()
                 posterImageView.setImage(movie.getFullPosterUrl())
                 genreOnPosterTextView.text = movie.genreIds.first()
-
-
                 setFavoriteHeartIcon.setOnClickListener {
+                    favoriteIconClickListener?.onFavoriteIconClick(movie)
                     setFavoriteHeartIcon.toggleFavoriteHeartIcons()
+
                 }
 
             }
