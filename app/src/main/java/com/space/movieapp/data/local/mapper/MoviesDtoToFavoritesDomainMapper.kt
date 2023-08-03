@@ -1,16 +1,16 @@
-package com.space.movieapp.presentation.data.mapper
+package com.space.movieapp.data.local.mapper
 
-import com.space.movieapp.data.local.entity.FavoritesEntity
-import com.space.movieapp.presentation.data.model.MoviesUIModel
+import com.space.movieapp.data.remote.model.MoviesDto
+import com.space.movieapp.domain.model.FavoritesDomainModel
 import com.space.movieapp.utils.BaseMapper
 
-class MoviesToFavoritesMapper : BaseMapper<MoviesUIModel.ResultUI, FavoritesEntity> {
-    override fun invoke(model: MoviesUIModel.ResultUI): FavoritesEntity {
-        with(model) {
-            return FavoritesEntity(
+class MoviesDtoToFavoritesDomainMapper : BaseMapper<MoviesDto.ResultDto, FavoritesDomainModel> {
+    override fun invoke(dto: MoviesDto.ResultDto): FavoritesDomainModel {
+        return with(dto) {
+            FavoritesDomainModel(
                 id = id,
                 title = title,
-                genres = genreIds.toString(),
+                genreIds = genreIds.toString(),
                 voteAverage = voteAverage,
                 releaseDate = releaseDate,
                 posterPath = posterPath,

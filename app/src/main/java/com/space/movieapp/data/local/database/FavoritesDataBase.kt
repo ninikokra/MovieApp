@@ -7,7 +7,7 @@ import com.space.movieapp.data.local.entity.FavoritesEntity
 
 @Database(
     entities = [FavoritesEntity::class],
-    version = 2,
+    version = 3,
 )
 abstract class FavoritesDataBase : RoomDatabase() {
     abstract fun favoritesDao(): FavoritesDao

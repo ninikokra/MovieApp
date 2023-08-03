@@ -1,16 +1,11 @@
-package com.space.movieapp.domain.usecase.getMovies
+package com.space.movieapp.domain.usecase.get_Movies
 
 import com.space.movieapp.domain.repository.MoviesRepository
 import com.space.movieapp.domain.usecase.base.BaseUseCase
 import androidx.paging.PagingData
-import androidx.paging.map
-import com.space.movieapp.data.remote.model.GenresDto
 import com.space.movieapp.data.remote.model.GetMoviesParams
 import com.space.movieapp.domain.model.MoviesDomainModel
-import com.space.movieapp.presentation.data.mapper.MoviesDomainUIMapper
-import com.space.movieapp.presentation.data.model.MoviesUIModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 class GetMoviesUseCase(
     private val moviesRepository: MoviesRepository

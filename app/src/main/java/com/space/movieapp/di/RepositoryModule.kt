@@ -11,6 +11,6 @@ val repositoryModule = module{
       MoviesRepositoryImpl(get(),get())
     }
     single<FavoritesRepository>{
-        FavoritesRepositoryImpl(get())
+        FavoritesRepositoryImpl(get(),get(),get())
     }
 }

@@ -1,11 +1,11 @@
 package com.space.movieapp.presentation.home.ui
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.space.movieapp.R
 import com.space.movieapp.databinding.FragmentHomeBinding
+import com.space.movieapp.domain.model.FavoritesDomainModel
 import com.space.movieapp.presentation.home.adapter.MoviesPagingAdapter
 import com.space.movieapp.presentation.base.BaseFragment
 import com.space.movieapp.presentation.data.model.MoviesUIModel
@@ -100,7 +100,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(), FavoriteIconClickListener {
 
     override fun onFavoriteIconClick(movie: MoviesUIModel.ResultUI) {
         lifecycleScope.launch {
-            //viewModel.toggleFavoriteStatus(movie)
+            viewModel.toggleFavoriteStatus(movie)
         }
     }
 }

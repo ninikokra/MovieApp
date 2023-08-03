@@ -25,14 +25,14 @@ class MoviesPagingAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MoviesUIModel.ResultUI) {
             with(binding) {
-                var favoriteIconClickListener: FavoriteIconClickListener? = null
+                var favoritesmIconClickListener: FavoriteIconClickListener? = null
 
                 movieTitleTextview.text = movie.title
                 releasedYearTextview.text = movie.getFormattedReleaseDate()
                 posterImageView.setImage(movie.getFullPosterUrl())
                 genreOnPosterTextView.text = movie.genreIds.first()
                 setFavoriteHeartIcon.setOnClickListener {
-                    favoriteIconClickListener?.onFavoriteIconClick(movie)
+                    favoritesmIconClickListener?.onFavoriteIconClick(movie)
                     setFavoriteHeartIcon.toggleFavoriteHeartIcons()
 
                 }

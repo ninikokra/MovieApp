@@ -1,11 +1,6 @@
-package com.space.movieapp.data.local.entity
+package com.space.movieapp.presentation.data.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "favorites")
-data class FavoritesEntity(
-    @PrimaryKey()
+data class FavoritesUIModel(
     val id: Int,
     val genreIds: String,
     val title: String,
