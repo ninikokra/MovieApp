@@ -4,12 +4,19 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.space.movieapp.databinding.MoviesRvItemsBinding
-import com.space.movieapp.presentation.data.model.MoviesUIModel
+import com.space.movieapp.domain.model.MoviesDomainModel
 import com.space.movieapp.utils.*
 
 class MoviesPagingAdapter :
-    PagingDataAdapter<MoviesUIModel.ResultUI, MoviesPagingAdapter.MovieViewHolder>(DiffCallback()) {
+    PagingDataAdapter<MoviesDomainModel.ResultDomain, MoviesPagingAdapter.MovieViewHolder>(
+        DiffCallback()
+    ) {
 
+    private var onFavoriteIconCLick: ((MoviesDomainModel.ResultDomain) -> Unit)? = null
+
+    fun setOnIconClickListener(listener: (MoviesDomainModel.ResultDomain) -> Unit) {
+        onFavoriteIconCLick = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(parent.viewBinding(MoviesRvItemsBinding::inflate))
@@ -17,26 +24,26 @@ class MoviesPagingAdapter :
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         getItem(position)?.let { movie ->
-            holder.bind(movie)
+            holder.bind(movie, onFavoriteIconCLick)
         }
     }
 
-    class MovieViewHolder(private val binding: MoviesRvItemsBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MoviesUIModel.ResultUI) {
+    class MovieViewHolder(
+        private val binding: MoviesRvItemsBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(
+            movie: MoviesDomainModel.ResultDomain,
+            onFavoriteClicked: ((MoviesDomainModel.ResultDomain) -> Unit)?
+        ) {
             with(binding) {
-                var favoritesmIconClickListener: FavoriteIconClickListener? = null
-
                 movieTitleTextview.text = movie.title
                 releasedYearTextview.text = movie.getFormattedReleaseDate()
                 posterImageView.setImage(movie.getFullPosterUrl())
                 genreOnPosterTextView.text = movie.genreIds.first()
                 setFavoriteHeartIcon.setOnClickListener {
-                    favoritesmIconClickListener?.onFavoriteIconClick(movie)
                     setFavoriteHeartIcon.toggleFavoriteHeartIcons()
-
+                    onFavoriteClicked?.invoke(movie)
                 }
-
             }
         }
     }

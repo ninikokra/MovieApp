@@ -1,12 +1,10 @@
 package com.space.movieapp.domain.repository
-
-import com.space.movieapp.data.local.entity.FavoritesEntity
-import com.space.movieapp.domain.model.FavoritesDomainModel
+import com.space.movieapp.domain.model.MoviesDomainModel
 import kotlinx.coroutines.flow.Flow
 
 interface FavoritesRepository {
-    fun getAllFavoriteMovies(): Flow<List<FavoritesDomainModel>>
-    suspend fun insertFavoriteMovie(movie: FavoritesDomainModel)
+    fun getAllFavoriteMovies(): Flow<List<MoviesDomainModel.ResultDomain>>
+    suspend fun insertFavoriteMovie(movie: MoviesDomainModel.ResultDomain)
     suspend fun deleteFavoriteMovie(movieId: Int)
-    suspend fun isMovieInFavorites(movieId: Int): Boolean
+    suspend fun checkFavoriteMovies(movieId: Int): Boolean
 }

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class FavoritesEntity(
     @PrimaryKey()
     val id: Int,
-    val genreIds: String,
+    val genreIds: List<String>,
     val title: String,
     val voteAverage: Double,
     val releaseDate: String,

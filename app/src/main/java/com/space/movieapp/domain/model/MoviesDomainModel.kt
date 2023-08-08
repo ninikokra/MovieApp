@@ -1,10 +1,10 @@
 package com.space.movieapp.domain.model
 
-import com.space.movieapp.data.remote.model.MoviesDto
+import com.space.movieapp.data.remote.network_utils.NetworkKeys
 
 data class MoviesDomainModel(
     val page: Int,
-    val results: List<MoviesDto.ResultDto>,
+    val results: List<ResultDomain>,
     val totalPages: Int,
     val totalResults: Int
 ) {
@@ -23,5 +23,21 @@ data class MoviesDomainModel(
         val id: Int,
         val title: String,
         val releaseDate: String,
-    )
+    ) {
+        private fun getImageUrl(posterPath: String): String {
+            return NetworkKeys.IMAGE_URL + posterPath
+        }
+
+        private fun formatDate(date: String): String {
+            return date.dropLast(6)
+        }
+
+        fun getFormattedReleaseDate(): String {
+            return formatDate(releaseDate)
+        }
+
+        fun getFullPosterUrl(): String {
+            return getImageUrl(posterPath)
+        }
+    }
 }

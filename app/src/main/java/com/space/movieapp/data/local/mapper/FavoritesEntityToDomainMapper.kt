@@ -1,16 +1,16 @@
 package com.space.movieapp.data.local.mapper
 
 import com.space.movieapp.data.local.entity.FavoritesEntity
-import com.space.movieapp.domain.model.FavoritesDomainModel
+import com.space.movieapp.domain.model.MoviesDomainModel
 import com.space.movieapp.utils.BaseMapper
 
-class FavoritesEntityToDomainMapper : BaseMapper<FavoritesEntity, FavoritesDomainModel> {
-    override fun invoke(entity: FavoritesEntity): FavoritesDomainModel{
-        return with(entity) {
-            FavoritesDomainModel(
+class FavoritesEntityToDomainMapper : BaseMapper<FavoritesEntity, MoviesDomainModel.ResultDomain> {
+    override fun invoke(model: FavoritesEntity): MoviesDomainModel.ResultDomain{
+        return with(model) {
+            MoviesDomainModel.ResultDomain(
                 id = id,
                 title = title,
-                genreIds = genreIds.toString(),
+                genreIds = genreIds,
                 voteAverage = voteAverage,
                 releaseDate = releaseDate,
                 posterPath = posterPath,

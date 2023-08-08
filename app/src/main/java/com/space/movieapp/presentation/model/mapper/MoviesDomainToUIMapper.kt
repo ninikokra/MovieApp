@@ -1,13 +1,13 @@
-package com.space.movieapp.presentation.data.mapper
+package com.space.movieapp.presentation.model.mapper
 
 import com.space.movieapp.domain.model.MoviesDomainModel
-import com.space.movieapp.presentation.data.model.MoviesUIModel
+import com.space.movieapp.presentation.model.model.MoviesUIModel
 import com.space.movieapp.utils.BaseMapper
 
-class MoviesUIToDomainMapper : BaseMapper<MoviesUIModel.ResultUI, MoviesDomainModel.ResultDomain> {
-    override fun invoke(uiModel: MoviesUIModel.ResultUI): MoviesDomainModel.ResultDomain {
-        with(uiModel) {
-            return MoviesDomainModel.ResultDomain(
+class MoviesDomainToUIMapper : BaseMapper<MoviesDomainModel.ResultDomain, MoviesUIModel.ResultUI> {
+    override fun invoke(model: MoviesDomainModel.ResultDomain): MoviesUIModel.ResultUI {
+        with(model){
+            return MoviesUIModel.ResultUI(
                 id = id,
                 title = title,
                 adult = adult,

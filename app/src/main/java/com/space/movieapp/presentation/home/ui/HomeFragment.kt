@@ -5,20 +5,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.space.movieapp.R
 import com.space.movieapp.databinding.FragmentHomeBinding
-import com.space.movieapp.domain.model.FavoritesDomainModel
 import com.space.movieapp.presentation.home.adapter.MoviesPagingAdapter
 import com.space.movieapp.presentation.base.BaseFragment
-import com.space.movieapp.presentation.data.model.MoviesUIModel
-import com.space.movieapp.presentation.home.adapter.FavoriteIconClickListener
 import com.space.movieapp.presentation.home.vm.HomeViewModel
 import com.space.movieapp.presentation.views.LoadStateDialog
 import com.space.movieapp.utils.MovieCategory
+import com.space.movieapp.utils.lifecycleScope
 import com.space.movieapp.utils.viewBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
-class HomeFragment : BaseFragment<HomeViewModel>(), FavoriteIconClickListener {
+class HomeFragment : BaseFragment<HomeViewModel>() {
 
     override val viewModelClass: KClass<HomeViewModel>
         get() = HomeViewModel::class
@@ -33,9 +31,10 @@ class HomeFragment : BaseFragment<HomeViewModel>(), FavoriteIconClickListener {
         get() = R.layout.fragment_home
 
     override fun onBind() {
-        navigationToFav()
+        navigationToDetails()
         initRecyclerView()
-        setFilter()
+        setCategory()
+        setFavoriteListener()
         observeMoviesByType(MovieCategory.POPULAR)
     }
 
@@ -80,7 +79,7 @@ class HomeFragment : BaseFragment<HomeViewModel>(), FavoriteIconClickListener {
         }
     }
 
-    private fun setFilter() {
+    private fun setCategory() {
         with(binding) {
             customSearchView.setPopularMoviesChipClickListener {
                 observeMoviesByType(MovieCategory.POPULAR)
@@ -92,15 +91,17 @@ class HomeFragment : BaseFragment<HomeViewModel>(), FavoriteIconClickListener {
         }
     }
 
-    private fun navigationToFav() {
+    private fun navigationToDetails() {
         binding.movieTextview.setOnClickListener {
-            viewModel.navigationToFav()
+            viewModel.navigationToDetails()
         }
     }
 
-    override fun onFavoriteIconClick(movie: MoviesUIModel.ResultUI) {
-        lifecycleScope.launch {
-            viewModel.toggleFavoriteStatus(movie)
+    private fun setFavoriteListener() {
+        moviesPagingAdapter.setOnIconClickListener {
+            lifecycleScope {
+                viewModel.toggleFavoriteMovie(it)
+            }
         }
     }
 }
