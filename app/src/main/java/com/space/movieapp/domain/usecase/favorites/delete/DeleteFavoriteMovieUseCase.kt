@@ -6,6 +6,9 @@ import com.space.movieapp.domain.usecase.base.BaseUseCase
 class DeleteFavoriteMovieUseCase(private val repository: FavoritesRepository) :
     BaseUseCase<Int, Unit>() {
     override suspend fun invoke(params: Int?) {
-        params?.let { repository.deleteFavoriteMovie(it) }
+        if (params == null) {
+            throw IllegalArgumentException()
+        }
+        repository.deleteFavoriteMovie(params)
     }
 }
