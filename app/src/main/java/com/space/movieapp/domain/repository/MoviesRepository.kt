@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface MoviesRepository {
     fun getMovies(category: String, page: Int): Flow<PagingData<MoviesDomainModel.ResultDomain>>
+    suspend fun searchMovies(query: String):Flow<PagingData<MoviesDomainModel.ResultDomain>>
 }

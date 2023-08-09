@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import com.google.android.material.chip.Chip
 import com.space.movieapp.R
 import com.space.movieapp.databinding.CustomSearchBarBinding
+import com.space.movieapp.utils.OnQuerySubmitListener
 import com.space.movieapp.utils.isVisible
 
 class CustomSearchBar @JvmOverloads constructor(
@@ -22,6 +23,12 @@ class CustomSearchBar @JvmOverloads constructor(
         CustomSearchBarBinding.inflate(LayoutInflater.from(context), this, true)
     }
     private var isSearchButtonActive = false
+
+    private var onQuerySubmitListener: OnQuerySubmitListener? = null
+
+    fun setOnQuerySubmitListener(listener: OnQuerySubmitListener) {
+        onQuerySubmitListener = listener
+    }
 
     init {
         setupSearchBarEditText()
@@ -51,14 +58,6 @@ class CustomSearchBar @JvmOverloads constructor(
                     } else{
                         R.drawable.ic_unselected_search
                     })
-
-              /*  if (isSearchButtonActive) {
-                    searchSelectionButton.setBackgroundResource(R.drawable.ic_selected_search)
-                    genresChipGroup.isVisible(true)
-                } else {
-                    searchSelectionButton.setBackgroundResource(R.drawable.ic_unselected_search)
-                    genresChipGroup.isVisible(false)
-                }*/
             }
         }
     }

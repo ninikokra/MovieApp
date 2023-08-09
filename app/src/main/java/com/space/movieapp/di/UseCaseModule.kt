@@ -4,6 +4,7 @@ import com.space.movieapp.domain.usecase.favorites.delete.DeleteFavoriteMovieUse
 import com.space.movieapp.domain.usecase.favorites.get_all.GetAllFavoriteMoviesUseCase
 import com.space.movieapp.domain.usecase.get_Movies.GetMoviesUseCase
 import com.space.movieapp.domain.usecase.favorites.toggle.ToggleFavoriteMovieUseCase
+import com.space.movieapp.domain.usecase.search.SearchMoviesUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module{
@@ -11,4 +12,5 @@ val useCaseModule = module{
     single { ToggleFavoriteMovieUseCase(get()) }
     single { DeleteFavoriteMovieUseCase(get()) }
     single { GetAllFavoriteMoviesUseCase(get()) }
+    single { SearchMoviesUseCase(get()) }
 }
