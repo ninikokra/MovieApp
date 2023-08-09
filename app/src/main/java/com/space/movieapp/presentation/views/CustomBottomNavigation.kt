@@ -34,14 +34,15 @@ class CustomBottomNavigation @JvmOverloads constructor(
     }
 
     private fun setupButtonListeners() {
-        binding.homeBottomButton.setOnClickListener {
-            onHomeButtonClicked?.invoke()
-            updateButtonStates(true)
-        }
-
-        binding.favoriteBottomButton.setOnClickListener {
-            onFavoritesButtonClicked?.invoke()
-            updateButtonStates(false)
+        with(binding) {
+            homeBottomButton.setOnClickListener {
+                onHomeButtonClicked?.invoke()
+                updateButtonStates(true)
+            }
+            favoriteBottomButton.setOnClickListener {
+                onFavoritesButtonClicked?.invoke()
+                updateButtonStates(false)
+            }
         }
     }
 
@@ -78,10 +79,4 @@ class CustomBottomNavigation @JvmOverloads constructor(
             iconColor = context.getColorCompat(R.color.neutral_08_whisper)
         )
     }
-
-    private data class ButtonColors(
-        val backgroundTint: Int,
-        val textColor: Int,
-        val iconColor: Int
-    )
 }

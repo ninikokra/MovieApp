@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -44,14 +45,33 @@ class CustomSearchBar @JvmOverloads constructor(
             searchSelectionButton.setOnClickListener {
                 isSearchButtonActive = !isSearchButtonActive
 
-                if (isSearchButtonActive) {
+                genresChipGroup.isVisible(isSearchButtonActive)
+                    searchSelectionButton.setBackgroundResource(if (isSearchButtonActive){
+                        R.drawable.ic_selected_search
+                    } else{
+                        R.drawable.ic_unselected_search
+                    })
+
+              /*  if (isSearchButtonActive) {
                     searchSelectionButton.setBackgroundResource(R.drawable.ic_selected_search)
                     genresChipGroup.isVisible(true)
                 } else {
                     searchSelectionButton.setBackgroundResource(R.drawable.ic_unselected_search)
                     genresChipGroup.isVisible(false)
-                }
+                }*/
             }
+        }
+    }
+
+    fun setPopularMoviesChipClickListener(listener: () -> Unit) {
+        binding.popularMoviesChip.setOnClickListener {
+            listener.invoke()
+        }
+    }
+
+    fun setTopRatedMoviesChipClickListener(listener: () -> Unit) {
+        binding.topRatedMoviesChip.setOnClickListener {
+            listener.invoke()
         }
     }
 }

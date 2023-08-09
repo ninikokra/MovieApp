@@ -1,17 +1,12 @@
-package com.space.movieapp
+package com.space.movieapp.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.window.SplashScreen
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.space.movieapp.R
 import com.space.movieapp.databinding.ActivityMoviesBinding
-import com.space.movieapp.presentation.favorites.ui.FavoritesFragment
-import com.space.movieapp.presentation.home.ui.HomeFragment
-import com.space.movieapp.presentation.splash_screen.SplashFragment
-import com.space.movieapp.presentation.views.CustomBottomNavigation
+import com.space.movieapp.utils.isVisible
 import com.space.movieapp.utils.viewBinding
 
 class MoviesActivity : AppCompatActivity() {
@@ -23,9 +18,10 @@ class MoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        navigationToUI()
+        setUpNavigation()
         setBottomNavClicks()
         supportActionBar?.hide()
+
     }
 
     private fun setBottomNavClicks() {
@@ -40,7 +36,7 @@ class MoviesActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigationToUI() {
+    private fun setUpNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment
         navController = navHostFragment.navController
@@ -54,6 +50,6 @@ class MoviesActivity : AppCompatActivity() {
             R.id.homeFragment, R.id.favoritesFragment -> true
             else -> false
         }
-        binding.customBottomNav.visibility = if (showBottomNav) View.VISIBLE else View.GONE
+        binding.customBottomNav.isVisible(showBottomNav)
     }
 }
