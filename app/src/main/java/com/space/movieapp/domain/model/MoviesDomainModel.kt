@@ -23,21 +23,5 @@ data class MoviesDomainModel(
         val id: Int,
         val title: String,
         val releaseDate: String,
-    ) {
-        private fun getImageUrl(posterPath: String): String {
-            return NetworkKeys.IMAGE_URL + posterPath
-        }
-
-        private fun formatDate(date: String): String {
-            return date.dropLast(6)
-        }
-
-        fun getFormattedReleaseDate(): String {
-            return formatDate(releaseDate)
-        }
-
-        fun getFullPosterUrl(): String {
-            return getImageUrl(posterPath)
-        }
-    }
+    )
 }

@@ -8,9 +8,9 @@ import com.space.movieapp.presentation.model.mapper.MoviesUIToDomainMapper
 import org.koin.dsl.module
 
 val mapperModule = module {
-    single { MoviesDtoToDomainMapper() }//+
-    single { MoviesDomainToUIMapper() } //+
-    single { MoviesUIToDomainMapper() }//+
-    single { FavoritesEntityToDomainMapper() }//+
+    single { MoviesDtoToDomainMapper() }
+    single { MoviesDomainToUIMapper() }
+    single { MoviesUIToDomainMapper() }
+    single { FavoritesEntityToDomainMapper() }
     single { MoviesDomainToFavoritesEntityMapper()}
 }

@@ -98,10 +98,8 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     }
 
     private fun setFavoriteListener() {
-        moviesPagingAdapter.setOnIconClickListener {
-            lifecycleScope {
-                viewModel.toggleFavoriteMovie(it)
-            }
+        moviesPagingAdapter.setOnIconClickListener { movie ->
+            viewModel.toggleFavoriteMovie(movie)
         }
     }
 }

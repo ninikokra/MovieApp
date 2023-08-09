@@ -26,7 +26,7 @@ class HomeViewModel(
             .cachedIn(viewModelScope)
     }
 
-    suspend fun toggleFavoriteMovie(movie: MoviesDomainModel.ResultDomain) {
+    fun toggleFavoriteMovie(movie: MoviesDomainModel.ResultDomain) {
         viewModelScope.launch {
             toggleFavoriteMovieUseCase.invoke(movie)
         }

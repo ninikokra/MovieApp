@@ -3,7 +3,7 @@ package com.space.movieapp.presentation.home.adapter
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.space.movieapp.databinding.MoviesRvItemsBinding
+import com.space.movieapp.databinding.MoviesItemsBinding
 import com.space.movieapp.domain.model.MoviesDomainModel
 import com.space.movieapp.utils.*
 
@@ -19,7 +19,7 @@ class MoviesPagingAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(parent.viewBinding(MoviesRvItemsBinding::inflate))
+        return MovieViewHolder(parent.viewBinding(MoviesItemsBinding::inflate))
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -29,7 +29,7 @@ class MoviesPagingAdapter :
     }
 
     class MovieViewHolder(
-        private val binding: MoviesRvItemsBinding,
+        private val binding: MoviesItemsBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(
             movie: MoviesDomainModel.ResultDomain,
