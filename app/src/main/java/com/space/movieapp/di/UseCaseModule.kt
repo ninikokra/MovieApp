@@ -1,5 +1,6 @@
 package com.space.movieapp.di
 
+import com.space.movieapp.domain.usecase.details.GetDetailsUseCase
 import com.space.movieapp.domain.usecase.favorites.delete.DeleteFavoriteMovieUseCase
 import com.space.movieapp.domain.usecase.favorites.get_all.GetAllFavoriteMoviesUseCase
 import com.space.movieapp.domain.usecase.get_Movies.GetMoviesUseCase
@@ -13,4 +14,5 @@ val useCaseModule = module{
     single { DeleteFavoriteMovieUseCase(get()) }
     single { GetAllFavoriteMoviesUseCase(get()) }
     single { SearchMoviesUseCase(get()) }
+    single { GetDetailsUseCase(get()) }
 }

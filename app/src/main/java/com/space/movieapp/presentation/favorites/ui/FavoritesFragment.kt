@@ -28,6 +28,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel>() {
     override fun onBind() {
         initRecyclerView()
         observeFavMoviesAndVisibility()
+        navigateToDetails()
     }
 
     private fun initRecyclerView() {
@@ -46,6 +47,11 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel>() {
 
         favoritesAdapter.setOnIconClickListener { movie ->
             viewModel.deleteFavMovie(movie)
+        }
+    }
+    fun navigateToDetails(){
+        favoritesAdapter.setOnItemClickListener {
+            viewModel.navigateToDetails(it.id)
         }
     }
 }

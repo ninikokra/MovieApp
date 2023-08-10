@@ -12,11 +12,18 @@ class MoviesPagingAdapter :
         DiffCallback()
     ) {
 
-    private var onFavoriteIconCLick: ((MoviesDomainModel.ResultDomain) -> Unit)? = null
+    private var onItemClickListener: ((MoviesDomainModel.ResultDomain) -> Unit)? = null
+    private var onIconCLickListener: ((MoviesDomainModel.ResultDomain) -> Unit)? = null
 
     fun setOnIconClickListener(listener: (MoviesDomainModel.ResultDomain) -> Unit) {
-        onFavoriteIconCLick = listener
+        onIconCLickListener = listener
     }
+
+
+    fun setOnItemClickListener(listener: (MoviesDomainModel.ResultDomain) -> Unit) {
+        onItemClickListener = listener
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(parent.viewBinding(MoviesRvItemsBinding::inflate))
@@ -24,7 +31,7 @@ class MoviesPagingAdapter :
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         getItem(position)?.let { movie ->
-            holder.bind(movie, onFavoriteIconCLick)
+            holder.bind(movie, onItemClickListener,onIconCLickListener)
         }
     }
 
@@ -33,7 +40,9 @@ class MoviesPagingAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(
             movie: MoviesDomainModel.ResultDomain,
-            onFavoriteClicked: ((MoviesDomainModel.ResultDomain) -> Unit)?
+            onItemClickListener: ((MoviesDomainModel.ResultDomain) -> Unit)?,
+            onIconCLickListener: ((MoviesDomainModel.ResultDomain) -> Unit)?
+
         ) {
             with(binding) {
                 movieTitleTextview.text = movie.title
@@ -42,7 +51,10 @@ class MoviesPagingAdapter :
                 genreOnPosterTextView.text = movie.genreIds.first()
                 setFavoriteHeartIcon.setOnClickListener {
                     setFavoriteHeartIcon.toggleFavoriteHeartIcons()
-                    onFavoriteClicked?.invoke(movie)
+                    onIconCLickListener?.invoke(movie)
+                }
+                itemView.setOnClickListener {
+                    onItemClickListener?.invoke(movie)
                 }
             }
         }

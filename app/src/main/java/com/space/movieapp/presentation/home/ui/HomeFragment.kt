@@ -10,7 +10,6 @@ import com.space.movieapp.presentation.base.BaseFragment
 import com.space.movieapp.presentation.home.vm.HomeViewModel
 import com.space.movieapp.presentation.views.LoadStateDialog
 import com.space.movieapp.utils.MovieCategory
-import com.space.movieapp.utils.lifecycleScope
 import com.space.movieapp.utils.viewBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -32,10 +31,9 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         get() = R.layout.fragment_home
 
     override fun onBind() {
-        navigationToDetails()
         initRecyclerView()
         setCategory()
-        setFavoriteListener()
+        setListeners()
         setupSearchBar()
         observeMoviesByType(MovieCategory.POPULAR)
     }
@@ -93,17 +91,12 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
     }
 
-    private fun navigationToDetails() {
-        binding.movieTextview.setOnClickListener {
-            viewModel.navigationToDetails()
-        }
-    }
-
-    private fun setFavoriteListener() {
+    private fun setListeners() {
         moviesPagingAdapter.setOnIconClickListener {
-            lifecycleScope {
                 viewModel.toggleFavoriteMovie(it)
-            }
+        }
+        moviesPagingAdapter.setOnItemClickListener {
+            viewModel.navigationToDetails(it.id)
         }
     }
 

@@ -23,7 +23,6 @@ class HomeViewModel(
         return searchMoviesUseCase(query)
             .cachedIn(viewModelScope)
     }
-
     suspend fun getMovies(
         category: String,
         page: Int
@@ -33,13 +32,13 @@ class HomeViewModel(
             .cachedIn(viewModelScope)
     }
 
-    suspend fun toggleFavoriteMovie(movie: MoviesDomainModel.ResultDomain) {
+    fun toggleFavoriteMovie(movie: MoviesDomainModel.ResultDomain) {
         viewModelScope.launch {
             toggleFavoriteMovieUseCase.invoke(movie)
         }
     }
 
-    fun navigationToDetails() {
-        navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment())
+    fun navigationToDetails(movieId: Int) {
+        navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(movieId))
     }
 }

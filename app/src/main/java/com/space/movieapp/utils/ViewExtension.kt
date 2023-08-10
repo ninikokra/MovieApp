@@ -8,6 +8,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.space.movieapp.R
+import java.util.concurrent.TimeUnit
 
 fun View.isVisible(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE
@@ -19,6 +20,15 @@ fun Context.getColorCompat(@ColorRes colorResId: Int): Int {
 
 fun ImageView.setImage(url: String?) {
     Glide.with(this).load(url).into(this)
+}
+fun Double.formatOneDecimal(): String {
+    return String.format("%.1f", this)
+}
+
+fun Int.timeFormatter(): String {
+    val hours = TimeUnit.MINUTES.toHours(this.toLong())
+    val remainMinutes = this - TimeUnit.HOURS.toMinutes(hours)
+    return String.format("%dh %dm", hours, remainMinutes)
 }
 
 fun ImageView.setImageDrawableResource(@DrawableRes drawableResId: Int) {

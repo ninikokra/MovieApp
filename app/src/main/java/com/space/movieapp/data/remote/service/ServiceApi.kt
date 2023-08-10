@@ -1,5 +1,6 @@
 package com.space.movieapp.data.remote.service
 
+import com.space.movieapp.data.remote.model.DetailsDto
 import com.space.movieapp.data.remote.model.GenresDto
 import com.space.movieapp.data.remote.model.MoviesDto
 import retrofit2.Response
@@ -17,4 +18,8 @@ interface ServiceApi {
 
     @GET("search/movie")
     suspend fun searchMovies(@Query("query") query: String, @Query("page") page: Int): Response<MoviesDto>
+
+    @GET("movie/{movieId}")
+    suspend fun getMovieDetails(@Path("movieId") movieId: Int): Response<DetailsDto>
+
 }
