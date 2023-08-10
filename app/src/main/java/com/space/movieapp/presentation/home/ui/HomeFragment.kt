@@ -8,7 +8,6 @@ import com.space.movieapp.databinding.FragmentHomeBinding
 import com.space.movieapp.presentation.home.adapter.MoviesPagingAdapter
 import com.space.movieapp.presentation.base.BaseFragment
 import com.space.movieapp.presentation.home.vm.HomeViewModel
-import com.space.movieapp.presentation.views.CustomSearchBar
 import com.space.movieapp.presentation.views.LoadStateDialog
 import com.space.movieapp.utils.MovieCategory
 import com.space.movieapp.utils.lifecycleScope
@@ -17,7 +16,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 import com.space.movieapp.utils.OnQuerySubmitListener
-
 
 class HomeFragment : BaseFragment<HomeViewModel>() {
 
@@ -60,7 +58,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                         loadStateDialog?.showProgressBar()
 
                     }
-                    is LoadState.Error -> {
+                   is LoadState.Error -> {
                         loadStateDialog?.apply {
                             showErrorDialog()
 
@@ -110,19 +108,21 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     }
 
     private fun setupSearchBar() {
-        binding.customSearchView.apply {
-            setOnQuerySubmitListener(object : OnQuerySubmitListener {
-                override fun onQuerySubmitted(query: String) {
+        binding.customSearchView.setOnQuerySubmitListener(object : OnQuerySubmitListener {
+            override fun onQuerySubmitted(query: String) {
+                if (query.isNotEmpty()) {
                     performSearch(query)
                 }
-            })
-        }
+            }
+        })
     }
 
     private fun performSearch(query: String) {
-        lifecycleScope.launch {
-            viewModel.searchMovies(query).collectLatest { pagingData ->
-                moviesPagingAdapter.submitData(pagingData)
+        if (query.isNotBlank()) {
+            lifecycleScope.launch {
+                viewModel.searchMovies(query).collectLatest { pagingData ->
+                    moviesPagingAdapter.submitData(pagingData)
+                }
             }
         }
     }

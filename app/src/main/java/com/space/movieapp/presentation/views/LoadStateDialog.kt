@@ -7,11 +7,11 @@ import com.space.movieapp.databinding.LoadDataDesignBinding
 import com.space.movieapp.utils.isVisible
 import android.app.Dialog
 import android.graphics.Color
+import android.util.Log
 import android.view.ViewGroup
 import android.view.WindowManager
 
 class LoadStateDialog(context: Context) : Dialog(context) {
-
     private val binding: LoadDataDesignBinding =
         LoadDataDesignBinding.inflate(LayoutInflater.from(context))
 

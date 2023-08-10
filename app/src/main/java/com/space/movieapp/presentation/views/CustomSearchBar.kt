@@ -1,9 +1,12 @@
 package com.space.movieapp.presentation.views
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -40,16 +43,20 @@ class CustomSearchBar @JvmOverloads constructor(
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.searchSelectionButton.setBackgroundResource(R.drawable.ic_cancel)
-            }
+                    onQuerySubmitListener?.onQuerySubmitted(s.toString())
 
+                with(binding){
+                    searchSelectionButton.setBackgroundResource(R.drawable.ic_cancel)
+                }
+            }
             override fun afterTextChanged(s: Editable?) {}
         })
     }
-
     private fun setupSearchSelectionButton() {
         with(binding) {
             searchSelectionButton.setOnClickListener {
+                searchBarEditText.setText("")
+                   searchBarEditText.clearFocus()
                 isSearchButtonActive = !isSearchButtonActive
 
                 genresChipGroup.isVisible(isSearchButtonActive)

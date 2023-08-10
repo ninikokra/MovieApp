@@ -22,7 +22,9 @@ class MoviesPagingSource(
                 getGenres()
             }
             val page = params.key ?: 1
+
             val response = serviceApi.getMovies(category, page)
+
             if (response.isSuccessful) {
                 val movieList = response.body()?.results?.map { resultDto: MoviesDto.ResultDto ->
                     val mappedMovie = moviesDtoToDomainMapper(resultDto)
@@ -31,6 +33,7 @@ class MoviesPagingSource(
                     }
                     mappedMovie.copy(genreIds = mappedGenres)
                 } ?: emptyList()
+
                 val prevKey = if (page > 1) page - 1 else null
                 val nextKey = if (page < (response.body()?.totalPages ?: 0)) page + 1 else null
                 LoadResult.Page(movieList, prevKey, nextKey)
@@ -48,6 +51,7 @@ class MoviesPagingSource(
             genres = response.body()?.genres ?: emptyList()
         }
     }
+
     override fun getRefreshKey(state: PagingState<Int, MoviesDomainModel.ResultDomain>): Int? {
         return state.anchorPosition
     }
