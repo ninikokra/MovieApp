@@ -58,7 +58,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                         loadStateDialog?.showProgressBar()
 
                     }
-                   is LoadState.Error -> {
+                    is LoadState.Error -> {
                         loadStateDialog?.apply {
                             showErrorDialog()
 
@@ -118,12 +118,10 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     }
 
     private fun performSearch(query: String) {
-        if (query.isNotBlank()) {
-            lifecycleScope.launch {
-                viewModel.searchMovies(query).collectLatest { pagingData ->
-                    moviesPagingAdapter.submitData(pagingData)
-                }
+        lifecycleScope.launch {
+            viewModel.searchMovies(query).collectLatest { pagingData ->
+                moviesPagingAdapter.submitData(pagingData)
             }
+        }
     }
-}
 }
