@@ -124,6 +124,5 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                     moviesPagingAdapter.submitData(pagingData)
                 }
             }
-        }
     }
 }

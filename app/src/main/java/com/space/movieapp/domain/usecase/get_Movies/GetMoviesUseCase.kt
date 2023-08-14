@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 class GetMoviesUseCase(
     private val moviesRepository: MoviesRepository
 ) : BaseUseCase<RequestGetMoviesParams, Flow<PagingData<MoviesDomainModel.ResultDomain>>>() {
-
     override suspend fun invoke(params: RequestGetMoviesParams?): Flow<PagingData<MoviesDomainModel.ResultDomain>> {
         if (params == null) {
             throw IllegalArgumentException()

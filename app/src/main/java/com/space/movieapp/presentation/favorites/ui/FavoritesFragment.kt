@@ -3,6 +3,7 @@ package com.space.movieapp.presentation.favorites.ui
 import androidx.lifecycle.lifecycleScope
 import com.space.movieapp.R
 import com.space.movieapp.databinding.FragmentFavoritesBinding
+import com.space.movieapp.domain.model.MoviesDomainModel
 import com.space.movieapp.presentation.base.BaseFragment
 import com.space.movieapp.presentation.favorites.adapter.FavoritesAdapter
 import com.space.movieapp.presentation.favorites.vm.FavoritesViewModel
@@ -39,13 +40,17 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel>() {
     private fun observeFavMoviesAndVisibility() {
         viewModel.favoriteMoviesFlow
             .onEach { favoriteMovies ->
-                favoritesAdapter.submitList(favoriteMovies)
-                binding.noMoviesImageView.isVisible(favoriteMovies.isEmpty())
+                updateUIForMovies(favoriteMovies)
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         favoritesAdapter.setOnIconClickListener { movie ->
             viewModel.deleteFavMovie(movie)
         }
+    }
+
+    private fun updateUIForMovies(movies: List<MoviesDomainModel.ResultDomain>) {
+        favoritesAdapter.submitList(movies)
+        binding.noMoviesImageView.isVisible(movies.isEmpty())
     }
 }

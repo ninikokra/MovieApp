@@ -18,10 +18,10 @@ class FavoritesViewModel(
     val favoriteMoviesFlow: Flow<List<MoviesDomainModel.ResultDomain>> = _favoriteMoviesFlow
 
     init {
-        setFavMovies()
+        setFavoriteMovies()
     }
 
-    private fun setFavMovies() {
+    private fun setFavoriteMovies() {
         viewModelScope.launch {
             getAllFavoriteMoviesUseCase().collect { favoriteMovies ->
                 _favoriteMoviesFlow.value = favoriteMovies

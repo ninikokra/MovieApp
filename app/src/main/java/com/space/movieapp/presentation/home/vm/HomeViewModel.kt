@@ -32,7 +32,6 @@ class HomeViewModel(
         return getMoviesUseCase(params)
             .cachedIn(viewModelScope)
     }
-
     suspend fun isFavoriteMovie(movie: MoviesDomainModel.ResultDomain) {
         viewModelScope.launch {
             IsFavoriteMovieUseCase.invoke(movie)
