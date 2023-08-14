@@ -43,28 +43,32 @@ class CustomSearchBar @JvmOverloads constructor(
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    onQuerySubmitListener?.onQuerySubmitted(s.toString())
+                onQuerySubmitListener?.onQuerySubmitted(s.toString())
 
-                with(binding){
+                with(binding) {
                     searchSelectionButton.setBackgroundResource(R.drawable.ic_cancel)
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
     }
+
     private fun setupSearchSelectionButton() {
         with(binding) {
             searchSelectionButton.setOnClickListener {
                 searchBarEditText.setText("")
-                   searchBarEditText.clearFocus()
+                searchBarEditText.clearFocus()
                 isSearchButtonActive = !isSearchButtonActive
 
                 genresChipGroup.isVisible(isSearchButtonActive)
-                    searchSelectionButton.setBackgroundResource(if (isSearchButtonActive){
+                searchSelectionButton.setBackgroundResource(
+                    if (isSearchButtonActive) {
                         R.drawable.ic_selected_search
-                    } else{
+                    } else {
                         R.drawable.ic_unselected_search
-                    })
+                    }
+                )
             }
         }
     }

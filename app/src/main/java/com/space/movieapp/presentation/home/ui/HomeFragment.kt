@@ -10,7 +10,6 @@ import com.space.movieapp.presentation.base.BaseFragment
 import com.space.movieapp.presentation.home.vm.HomeViewModel
 import com.space.movieapp.presentation.views.LoadStateDialog
 import com.space.movieapp.utils.MovieCategory
-import com.space.movieapp.utils.lifecycleScope
 import com.space.movieapp.utils.viewBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -84,10 +83,12 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     private fun setCategory() {
         with(binding) {
             customSearchView.setPopularMoviesChipClickListener {
+                viewModel.setLastSelectedCategory(MovieCategory.POPULAR)
                 observeMoviesByType(MovieCategory.POPULAR)
             }
 
             customSearchView.setTopRatedMoviesChipClickListener {
+                viewModel.setLastSelectedCategory(MovieCategory.TOP_RATED)
                 observeMoviesByType(MovieCategory.TOP_RATED)
             }
         }
@@ -101,9 +102,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
     private fun setFavoriteListener() {
         moviesPagingAdapter.setOnIconClickListener {
-            lifecycleScope {
                 viewModel.isFavoriteMovie(it)
-            }
         }
     }
 
@@ -112,6 +111,9 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             override fun onQuerySubmitted(query: String) {
                 if (query.isNotEmpty()) {
                     performSearch(query)
+                }else{
+                    val lastSelectedCategory = viewModel.getLastSelectedCategory()
+                    observeMoviesByType(lastSelectedCategory)
                 }
             }
         })
