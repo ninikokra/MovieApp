@@ -28,6 +28,6 @@ class FavoritesRepositoryImpl(
     }
 
     override suspend fun checkFavoriteMovies(movieId: Int): Boolean {
-        return favoritesDao.checkMovieFavorites(movieId)
+        return favoritesDao.isMovieInFavorites(movieId)
     }
 }
