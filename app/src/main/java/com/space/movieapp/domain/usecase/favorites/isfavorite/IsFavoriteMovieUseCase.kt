@@ -1,4 +1,4 @@
-package com.space.movieapp.domain.usecase.favorites.isfavorite
+package com.space.movieapp.domain.usecase.favorites.isFavorite
 
 import com.space.movieapp.domain.model.MoviesDomainModel
 import com.space.movieapp.domain.repository.FavoritesRepository

@@ -5,8 +5,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.space.movieapp.data.remote.model.RequestGetMoviesParams
 import com.space.movieapp.domain.model.MoviesDomainModel
+import com.space.movieapp.domain.usecase.favorites.isFavorite.IsFavoriteMovieUseCase
 import com.space.movieapp.domain.usecase.get_Movies.GetMoviesUseCase
-import com.space.movieapp.domain.usecase.favorites.isfavorite.IsFavoriteMovieUseCase
 import com.space.movieapp.domain.usecase.search.SearchMoviesUseCase
 import com.space.movieapp.presentation.base.BaseViewModel
 import com.space.movieapp.presentation.home.ui.HomeFragmentDirections

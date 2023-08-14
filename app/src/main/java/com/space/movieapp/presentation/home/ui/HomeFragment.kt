@@ -126,3 +126,4 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             }
     }
 }
+}
