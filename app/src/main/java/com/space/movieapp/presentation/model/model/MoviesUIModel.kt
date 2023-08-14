@@ -1,4 +1,4 @@
-package com.space.movieapp.presentation.data.model
+package com.space.movieapp.presentation.model.model
 
 import com.space.movieapp.data.remote.model.MoviesDto
 import com.space.movieapp.data.remote.network_utils.NetworkKeys

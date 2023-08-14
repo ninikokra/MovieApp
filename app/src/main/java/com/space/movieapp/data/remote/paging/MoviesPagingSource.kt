@@ -48,7 +48,6 @@ class MoviesPagingSource(
             genres = response.body()?.genres ?: emptyList()
         }
     }
-
     override fun getRefreshKey(state: PagingState<Int, MoviesDomainModel.ResultDomain>): Int? {
         return state.anchorPosition
     }

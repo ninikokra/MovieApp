@@ -15,7 +15,7 @@ class MoviesApp : Application() {
             androidContext(this@MoviesApp)
             modules(
                 repositoryModule,useCaseModule,viewModelModule, mapperModule,
-                networkModule
+                networkModule, dataBaseModule
             )
         }
     }

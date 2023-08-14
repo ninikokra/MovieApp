@@ -1,7 +1,6 @@
 package com.space.movieapp.presentation.home.ui
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.space.movieapp.R
@@ -11,6 +10,7 @@ import com.space.movieapp.presentation.base.BaseFragment
 import com.space.movieapp.presentation.home.vm.HomeViewModel
 import com.space.movieapp.presentation.views.LoadStateDialog
 import com.space.movieapp.utils.MovieCategory
+import com.space.movieapp.utils.lifecycleScope
 import com.space.movieapp.utils.viewBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -31,9 +31,10 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         get() = R.layout.fragment_home
 
     override fun onBind() {
-        navigationToFav()
+        navigationToDetails()
         initRecyclerView()
-        setFilter()
+        setCategory()
+        setFavoriteListener()
         observeMoviesByType(MovieCategory.POPULAR)
     }
 
@@ -58,6 +59,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                     is LoadState.Error -> {
                         loadStateDialog?.apply {
                             showErrorDialog()
+
                             setRefreshButton {
                                 moviesPagingAdapter.retry()
                             }
@@ -77,7 +79,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
     }
 
-    private fun setFilter() {
+    private fun setCategory() {
         with(binding) {
             customSearchView.setPopularMoviesChipClickListener {
                 observeMoviesByType(MovieCategory.POPULAR)
@@ -89,9 +91,15 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
     }
 
-    private fun navigationToFav() {
+    private fun navigationToDetails() {
         binding.movieTextview.setOnClickListener {
-            viewModel.navigationToFav()
+            viewModel.navigationToDetails()
+        }
+    }
+
+    private fun setFavoriteListener() {
+        moviesPagingAdapter.setOnIconClickListener { movie ->
+            viewModel.toggleFavoriteMovie(movie)
         }
     }
 }

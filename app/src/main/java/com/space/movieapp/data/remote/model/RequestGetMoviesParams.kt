@@ -1,5 +1,6 @@
 package com.space.movieapp.data.remote.model
-data class GetMoviesParams(
+
+data class RequestGetMoviesParams(
     val category: String,
     val page: Int
 )

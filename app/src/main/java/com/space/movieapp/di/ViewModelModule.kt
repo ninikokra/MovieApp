@@ -15,7 +15,7 @@ val viewModelModule = module {
         HomeViewModel(get(),get())
     }
     viewModel{
-        FavoritesViewModel()
+        FavoritesViewModel(get(),get())
     }
     viewModel{
         DetailsViewModel()
