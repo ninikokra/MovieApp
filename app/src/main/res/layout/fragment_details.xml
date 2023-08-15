@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,147 +8,158 @@
     android:background="@color/neutral_01_black"
     tools:context=".presentation.details.ui.DetailsFragment">
 
-    <ImageView
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_20dp"
-        android:src="@drawable/ic_back_arrow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/detailsTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_regular"
-        android:letterSpacing="0.04"
-        android:text="@string/details_text"
-        android:textColor="@color/neutral_08_whisper"
-        android:textSize="@dimen/dimen_18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/backButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/backButton" />
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_20dp"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/favoritesMoviePoster"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/dimen_16dp"
-        android:src="@drawable/bkg_preview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsTitleTextView" />
+        <TextView
+            android:id="@+id/detailsTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_regular"
+            android:letterSpacing="0.04"
+            android:text="@string/details_text"
+            android:textColor="@color/neutral_08_whisper"
+            android:textSize="@dimen/dimen_18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/backButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/backButton" />
 
-    <TextView
-        android:id="@+id/detailsMovieTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dimen_20dp"
-        android:layout_marginTop="@dimen/dimen_14dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:text="The Atonement"
-        android:textColor="@color/neutral_08_whisper"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favoritesMoviePoster" />
+        <ImageView
+            android:id="@+id/favoritesMoviePoster"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            tools:src="@drawable/bkg_preview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsTitleTextView" />
 
-    <ImageView
-        android:id="@+id/favoritesIcHeart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dimen_20dp"
-        android:layout_marginTop="@dimen/dimen_14dp"
-        android:src="@drawable/ic_yellow_heart_big"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favoritesMoviePoster" />
+        <TextView
+            android:id="@+id/detailsMovieTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_14dp"
+            android:fontFamily="@font/montserrat_bold"
+            tools:text="The Atonement"
+            android:paddingEnd="@dimen/dimen_20dp"
+            android:textColor="@color/neutral_08_whisper"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/favoritesIcHeart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/favoritesMoviePoster" />
 
-    <TextView
-        android:id="@+id/ratingTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_5dp"
-        android:background="@drawable/ic_shape_frame"
-        android:drawableLeft="@drawable/ic_star"
-        android:padding="@dimen/dimen_5dp"
-        android:text=" 7.9"
-        android:textAlignment="center"
-        android:textColor="@color/neutral_06_lighter_grey"
-        android:textSize="@dimen/dimen_12sp"
-        app:layout_constraintStart_toStartOf="@+id/detailsMovieTitleTextView"
-        app:layout_constraintTop_toBottomOf="@+id/detailsMovieTitleTextView" />
+        <ImageView
+            android:id="@+id/favoritesIcHeart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_14dp"
+            android:src="@drawable/ic_yellow_heart_big"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/favoritesMoviePoster" />
 
-    <TextView
-        android:id="@+id/genreTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dimen_5dp"
-        android:layout_marginTop="@dimen/dimen_5dp"
-        android:background="@drawable/ic_shape_frame"
-        android:paddingHorizontal="@dimen/dimen_7dp"
-        android:paddingVertical="@dimen/dimen_5dp"
-        android:text="Romance"
-        android:textColor="@color/neutral_06_lighter_grey"
-        android:textSize="@dimen/dimen_12sp"
-        app:layout_constraintStart_toEndOf="@+id/ratingTextView"
-        app:layout_constraintTop_toBottomOf="@+id/detailsMovieTitleTextView" />
+        <TextView
+            android:id="@+id/ratingTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:background="@drawable/ic_shape_frame"
+            android:padding="@dimen/dimen_5dp"
+            tools:text=" 7.9"
+            android:textAlignment="center"
+            android:textColor="@color/neutral_06_lighter_grey"
+            android:textSize="@dimen/dimen_12sp"
+            app:layout_constraintStart_toStartOf="@+id/detailsMovieTitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/detailsMovieTitleTextView"
+            app:drawableLeftCompat="@drawable/ic_star" />
 
-    <TextView
-        android:id="@+id/durationTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dimen_5dp"
-        android:layout_marginTop="@dimen/dimen_5dp"
-        android:background="@drawable/ic_shape_frame"
-        android:drawableLeft="@drawable/ic_clock"
-        android:paddingHorizontal="@dimen/dimen_7dp"
-        android:paddingVertical="@dimen/dimen_5dp"
-        android:text="1h 50m"
-        android:textColor="@color/neutral_06_lighter_grey"
-        android:textSize="@dimen/dimen_12sp"
-        app:layout_constraintStart_toEndOf="@+id/genreTextView"
-        app:layout_constraintTop_toBottomOf="@+id/detailsMovieTitleTextView" />
+        <TextView
+            android:id="@+id/genreTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_5dp"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:background="@drawable/ic_shape_frame"
+            android:paddingHorizontal="@dimen/dimen_7dp"
+            android:paddingVertical="@dimen/dimen_5dp"
+            tools:text="Romance"
+            android:textColor="@color/neutral_06_lighter_grey"
+            android:textSize="@dimen/dimen_12sp"
+            app:layout_constraintStart_toEndOf="@+id/ratingTextView"
+            app:layout_constraintTop_toBottomOf="@+id/detailsMovieTitleTextView" />
 
-    <TextView
-        android:id="@+id/releasedYearTextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/dimen_5dp"
-        android:layout_marginTop="@dimen/dimen_5dp"
-        android:background="@drawable/ic_shape_frame"
-        android:paddingVertical="@dimen/dimen_3dp"
-        android:text="2007"
-        android:textAlignment="center"
-        android:textColor="@color/neutral_06_lighter_grey"
-        android:textSize="@dimen/dimen_12sp"
-        app:layout_constraintStart_toEndOf="@+id/durationTextView"
-        app:layout_constraintTop_toBottomOf="@+id/detailsMovieTitleTextView" />
+        <TextView
+            android:id="@+id/durationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_5dp"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:background="@drawable/ic_shape_frame"
+            android:paddingHorizontal="@dimen/dimen_7dp"
+            android:paddingVertical="@dimen/dimen_5dp"
+            tools:text="1h 50m"
+            android:textColor="@color/neutral_06_lighter_grey"
+            android:textSize="@dimen/dimen_12sp"
+            app:layout_constraintStart_toEndOf="@+id/genreTextView"
+            app:layout_constraintTop_toBottomOf="@+id/detailsMovieTitleTextView"
+            app:drawableLeftCompat="@drawable/ic_clock" />
 
-    <TextView
-        android:id="@+id/aboutMovieTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dimen_25dp"
-        android:layout_marginTop="@dimen/dimen_10dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="@string/about_movie"
-        android:textColor="@color/neutral_08_whisper"
-        android:textSize="@dimen/dimen_16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingTextView" />
+        <TextView
+            android:id="@+id/releasedYearTextview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_5dp"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:background="@drawable/ic_shape_frame"
+            android:paddingVertical="@dimen/dimen_3dp"
+            tools:text="2007"
+            android:textAlignment="center"
+            android:textColor="@color/neutral_06_lighter_grey"
+            android:textSize="@dimen/dimen_12sp"
+            app:layout_constraintStart_toEndOf="@+id/durationTextView"
+            app:layout_constraintTop_toBottomOf="@+id/detailsMovieTitleTextView" />
 
-    <TextView
-        android:id="@+id/aboutMovieTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_10dp"
-        android:fontFamily="@font/montserrat_regular"
-        android:text="Thirteen-year-old fledgling writer Briony Tallis irrevocably changes the course of several lives when she accuses her older sister's lover of a crime he did not commit."
-        android:textColor="@color/neutral_06_lighter_grey"
-        android:textSize="@dimen/dimen_14sp"
-        app:layout_constraintEnd_toEndOf="@+id/favoritesIcHeart"
-        app:layout_constraintStart_toStartOf="@+id/aboutMovieTitle"
-        app:layout_constraintTop_toBottomOf="@+id/aboutMovieTitle" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/aboutMovieTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_25dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/about_movie"
+            android:textColor="@color/neutral_08_whisper"
+            android:textSize="@dimen/dimen_16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingTextView" />
+
+        <TextView
+            android:id="@+id/aboutMovieTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:fontFamily="@font/montserrat_regular"
+            tools:text="Thirteen-year-old fledgling writer Briony Tallis irrevocably changes the course of several lives when she accuses her older sister's lover of a crime he did not commit."
+            android:textColor="@color/neutral_06_lighter_grey"
+            android:textSize="@dimen/dimen_14sp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/favoritesIcHeart"
+            app:layout_constraintStart_toStartOf="@+id/aboutMovieTitle"
+            app:layout_constraintTop_toBottomOf="@+id/aboutMovieTitle" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

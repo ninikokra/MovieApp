@@ -2,7 +2,6 @@ package com.space.movieapp.presentation.details.vm
 
 import androidx.lifecycle.viewModelScope
 import com.space.movieapp.domain.model.DetailsDomainModel
-import com.space.movieapp.domain.model.MoviesDomainModel
 import com.space.movieapp.domain.model.mapper.DetailsToMoviesDomainMapper
 import com.space.movieapp.domain.usecase.details.GetDetailsUseCase
 import com.space.movieapp.domain.usecase.favorites.toggle.ToggleFavoriteMovieUseCase
