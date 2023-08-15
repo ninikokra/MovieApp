@@ -31,9 +31,10 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         get() = R.layout.fragment_home
 
     override fun onBind() {
+        navigationToDetails()
         initRecyclerView()
         setCategory()
-        setListeners()
+        setFavoriteListener()
         setupSearchBar()
         observeMoviesByType(MovieCategory.POPULAR)
     }
@@ -56,7 +57,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
                         loadStateDialog?.showProgressBar()
 
                     }
-                   is LoadState.Error -> {
+                    is LoadState.Error -> {
                         loadStateDialog?.apply {
                             showErrorDialog()
 
@@ -82,21 +83,26 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     private fun setCategory() {
         with(binding) {
             customSearchView.setPopularMoviesChipClickListener {
+                viewModel.setLastSelectedCategory(MovieCategory.POPULAR)
                 observeMoviesByType(MovieCategory.POPULAR)
             }
 
             customSearchView.setTopRatedMoviesChipClickListener {
+                viewModel.setLastSelectedCategory(MovieCategory.TOP_RATED)
                 observeMoviesByType(MovieCategory.TOP_RATED)
             }
         }
     }
 
-    private fun setListeners() {
-        moviesPagingAdapter.setOnIconClickListener {
-                viewModel.toggleFavoriteMovie(it)
+    private fun navigationToDetails() {
+        binding.movieTextview.setOnClickListener {
+            viewModel.navigationToDetails()
         }
-        moviesPagingAdapter.setOnItemClickListener {
-            viewModel.navigationToDetails(it.id)
+    }
+
+    private fun setFavoriteListener() {
+        moviesPagingAdapter.setOnIconClickListener {
+                viewModel.isFavoriteMovie(it)
         }
     }
 
@@ -105,17 +111,18 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             override fun onQuerySubmitted(query: String) {
                 if (query.isNotEmpty()) {
                     performSearch(query)
+                }else{
+                    val lastSelectedCategory = viewModel.getLastSelectedCategory()
+                    observeMoviesByType(lastSelectedCategory)
                 }
             }
         })
     }
 
     private fun performSearch(query: String) {
-        if (query.isNotBlank()) {
-            lifecycleScope.launch {
-                viewModel.searchMovies(query).collectLatest { pagingData ->
-                    moviesPagingAdapter.submitData(pagingData)
-                }
+        lifecycleScope.launch {
+            viewModel.searchMovies(query).collectLatest { pagingData ->
+                moviesPagingAdapter.submitData(pagingData)
             }
         }
     }

@@ -9,20 +9,20 @@ class MoviesDtoToDomainMapper :
     override fun invoke(model: MoviesDto.ResultDto): MoviesDomainModel.ResultDomain {
         with(model) {
             return MoviesDomainModel.ResultDomain(
-                id = id,
-                title = title,
-                adult = adult,
-                backdropPath = backdropPath,
-                genreIds = genreIds.map { it.toString() },
-                originalLanguage = originalLanguage,
-                originalTitle = originalTitle,
-                overview = overview,
-                popularity = popularity,
-                posterPath = posterPath,
-                releaseDate = releaseDate,
-                video = video,
-                voteAverage = voteAverage,
-                voteCount = voteCount
+                id = id ?: 0,
+                title = title ?: "",
+                adult = adult ?: false,
+                backdropPath = backdropPath ?: "",
+                genreIds = genreIds!!.map { it.toString() },
+                originalLanguage = originalLanguage ?: "",
+                originalTitle = originalTitle ?: "",
+                overview = overview?: "",
+                popularity = popularity ?: 0.0,
+                posterPath = posterPath ?: "",
+                releaseDate = releaseDate ?: "",
+                video = video ?: false,
+                voteAverage = voteAverage?: 0.0,
+                voteCount = voteCount?: 0
             )
         }
     }
