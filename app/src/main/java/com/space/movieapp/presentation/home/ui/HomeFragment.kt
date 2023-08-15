@@ -31,10 +31,9 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         get() = R.layout.fragment_home
 
     override fun onBind() {
-        navigationToDetails()
         initRecyclerView()
         setCategory()
-        setFavoriteListener()
+        setListeners()
         setupSearchBar()
         observeMoviesByType(MovieCategory.POPULAR)
     }
@@ -94,15 +93,13 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
     }
 
-    private fun navigationToDetails() {
-        binding.movieTextview.setOnClickListener {
-            viewModel.navigationToDetails()
-        }
-    }
 
-    private fun setFavoriteListener() {
+    private fun setListeners() {
         moviesPagingAdapter.setOnIconClickListener {
-                viewModel.isFavoriteMovie(it)
+            viewModel.isFavoriteMovie(it)
+        }
+        moviesPagingAdapter.setOnItemClickListener {
+            viewModel.navigationToDetails(it.id)
         }
     }
 

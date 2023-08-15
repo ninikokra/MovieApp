@@ -54,9 +54,8 @@ class MoviesPagingAdapter :
                     posterImageView.setImage(movie.getFullPosterUrl())
                     genreOnPosterTextView.text = movie.genreIds.first()
                 } else {
-                    val placeholderDrawable = ContextCompat.getDrawable(itemView.context, R.drawable.bkg_no_image_available)
-                    posterImageView.setImageDrawable(placeholderDrawable)
-                    genreOnPosterTextView.text = itemView.context.getString(R.string.unknown_genre_text)
+                    posterImageView.setImageDrawableResource(R.drawable.bkg_no_image_available)
+                    genreOnPosterTextView.text = itemView.getStringRes(R.string.unknown_genre_text)
                 }
                 setFavoriteHeartIcon.setOnClickListener {
                     setFavoriteHeartIcon.toggleFavoriteHeartIcons()

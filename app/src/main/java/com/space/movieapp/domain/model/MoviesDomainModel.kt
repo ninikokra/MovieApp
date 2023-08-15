@@ -1,7 +1,5 @@
 package com.space.movieapp.domain.model
 
-import com.space.movieapp.data.remote.network_utils.NetworkKeys
-
 data class MoviesDomainModel(
     val page: Int,
     val results: List<ResultDomain>,
@@ -23,5 +21,6 @@ data class MoviesDomainModel(
         val id: Int,
         val title: String,
         val releaseDate: String,
+        val isFavorite: Boolean = false
     )
 }

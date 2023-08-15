@@ -6,10 +6,7 @@ import com.space.movieapp.R
 import com.space.movieapp.databinding.FragmentDetailsBinding
 import com.space.movieapp.presentation.base.BaseFragment
 import com.space.movieapp.presentation.details.vm.DetailsViewModel
-import com.space.movieapp.utils.formatOneDecimal
-import com.space.movieapp.utils.setImage
-import com.space.movieapp.utils.timeFormatter
-import com.space.movieapp.utils.viewBinding
+import com.space.movieapp.utils.*
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
@@ -38,22 +35,28 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
                     with(binding) {
                         detailsMovieTitleTextView.text = details.originalTitle
                         ratingTextView.text = details.voteAverage.formatOneDecimal()
-                        genreTextView.text = details.genres.first()
                         durationTextView.text = details.runtime.timeFormatter()
                         releasedYearTextview.text = details.getFormattedReleaseDate()
                         aboutMovieTextView.text = details.overview
-                        favoritesMoviePoster.setImage(details.getFullPosterUrl())
-                        backButton.setOnClickListener {
-                            viewModel.navigateToBack()
+
+                        if (details.backdropPath.isNotEmpty() && details.genres.isNotEmpty()) {
+                            favoritesMoviePoster.setImage(details.getFullPosterUrl())
+                            genreTextView.text = details.genres.first()
+                        } else {
+                            favoritesMoviePoster.setImageDrawableResource(R.drawable.bkg_no_image_available)
+                            genreTextView.text = genreTextView.getStringRes(R.string.unknown_genre_text)
                         }
                         favoritesIcHeart.setOnClickListener {
-                            viewModel.toggleFavoriteMovie(details)
+                            viewModel.isFavoriteMovie(details)
                             isFavoriteIconCLicked = !isFavoriteIconCLicked
                             if (isFavoriteIconCLicked) {
                                 favoritesIcHeart.setImageResource(R.drawable.ic_yello_hearts_filled_big)
                             } else {
                                 favoritesIcHeart.setImageResource(R.drawable.ic_yellow_heart_big)
                             }
+                        }
+                        backButton.setOnClickListener {
+                            viewModel.navigateToBack()
                         }
                     }
                 }

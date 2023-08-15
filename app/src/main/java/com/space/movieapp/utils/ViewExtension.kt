@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.space.movieapp.R
@@ -34,6 +35,10 @@ fun Int.timeFormatter(): String {
 fun ImageView.setImageDrawableResource(@DrawableRes drawableResId: Int) {
     val drawable = ContextCompat.getDrawable(context, drawableResId)
     setImageDrawable(drawable)
+}
+
+fun View.getStringRes(@StringRes resId: Int, vararg formatArgs: Any?): String {
+    return context.getString(resId, *formatArgs)
 }
 
 fun ImageView.toggleFavoriteHeartIcons() {

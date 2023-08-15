@@ -29,6 +29,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel>() {
     override fun onBind() {
         initRecyclerView()
         observeFavMoviesAndVisibility()
+        navigateToDetails()
     }
 
     private fun initRecyclerView() {
@@ -52,5 +53,10 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel>() {
     private fun updateUIForMovies(movies: List<MoviesDomainModel.ResultDomain>) {
         favoritesAdapter.submitList(movies)
         binding.noMoviesImageView.isVisible(movies.isEmpty())
+    }
+    private fun navigateToDetails(){
+        favoritesAdapter.setOnItemClickListener {
+            viewModel.navigateToDetails(it.id)
+        }
     }
 }

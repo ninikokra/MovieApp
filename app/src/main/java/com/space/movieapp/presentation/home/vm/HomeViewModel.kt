@@ -50,7 +50,7 @@ class HomeViewModel(
         }
     }
 
-    fun navigationToDetails() {
-        navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment())
+    fun navigationToDetails(movieId: Int) {
+        navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(movieId))
     }
 }
