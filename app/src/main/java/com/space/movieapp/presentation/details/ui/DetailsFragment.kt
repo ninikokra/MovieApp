@@ -1,5 +1,6 @@
 package com.space.movieapp.presentation.details.ui
 
+import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.space.movieapp.R
@@ -23,11 +24,18 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
 
     override fun onBind() {
         val movieId = args.movieId
+        backButton()
         setUpDetails(movieId)
     }
 
+    private fun updateFavoriteIcon(isFavorite: Boolean) {
+        if (isFavorite) {
+            binding.favoritesIcHeart.setImageResource(R.drawable.ic_yello_hearts_filled_big)
+        } else {
+            binding.favoritesIcHeart.setImageResource(R.drawable.ic_yellow_heart_big)
+        }
+    }
     private fun setUpDetails(movieId: Int) {
-        var isFavoriteIconCLicked = false
         viewModel.fetchMovieDetails(movieId)
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.detailsState.collect { details ->
@@ -46,14 +54,13 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
                             favoritesMoviePoster.setImageDrawableResource(R.drawable.bkg_no_image_available)
                             genreTextView.text = genreTextView.getStringRes(R.string.unknown_genre_text)
                         }
+
+                        val isFavorite = viewModel.setFavoriteMovie(details)
+                        updateFavoriteIcon(isFavorite)
+
                         favoritesIcHeart.setOnClickListener {
-                            viewModel.isFavoriteMovie(details)
-                            isFavoriteIconCLicked = !isFavoriteIconCLicked
-                            if (isFavoriteIconCLicked) {
-                                favoritesIcHeart.setImageResource(R.drawable.ic_yello_hearts_filled_big)
-                            } else {
-                                favoritesIcHeart.setImageResource(R.drawable.ic_yellow_heart_big)
-                            }
+                            viewModel.manageFavoriteMovie(details)
+                            updateFavoriteIcon(!isFavorite)
                         }
                         backButton.setOnClickListener {
                             viewModel.navigateToBack()
@@ -61,6 +68,11 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
                     }
                 }
             }
+        }
+    }
+    private fun backButton() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            viewModel.navigateToBack()
         }
     }
 }

@@ -25,12 +25,14 @@ data class DetailsDto(
     @SerializedName("vote_average")
     val voteAverage: Double?,
     @SerializedName("vote_count")
-    val voteCount: Int?
-){
+    val voteCount: Int?,
+    val isFavorite : Boolean,
+
+    ){
     data class Genre(
         @SerializedName("id")
         val id: Int,
         @SerializedName("name")
         val name: String
-    )
+        )
 }

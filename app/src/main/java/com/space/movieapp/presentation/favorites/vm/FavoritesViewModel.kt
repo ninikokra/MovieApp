@@ -37,4 +37,7 @@ class FavoritesViewModel(
     fun navigateToDetails(movieId: Int){
         navigate(FavoritesFragmentDirections.actionFavoritesFragmentToDetailsFragment(movieId))
     }
+    fun navigateToBack() {
+        navigateBack()
+    }
 }

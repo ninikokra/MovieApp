@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.space.movieapp.domain.model.DetailsDomainModel
 import com.space.movieapp.domain.model.mapper.DetailsToMoviesDomainMapper
 import com.space.movieapp.domain.usecase.details.GetDetailsUseCase
+import com.space.movieapp.domain.usecase.favorites.check_favorites.CheckFavoritesUseCase
 import com.space.movieapp.domain.usecase.favorites.isFavorite.IsFavoriteMovieUseCase
 import com.space.movieapp.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,8 @@ import kotlinx.coroutines.launch
 class DetailsViewModel(
     private val getDetailsUseCase: GetDetailsUseCase,
     private val isFavoriteMovieUseCase: IsFavoriteMovieUseCase,
-    private val detailsToMoviesDomainMapper: DetailsToMoviesDomainMapper
+    private val detailsToMoviesDomainMapper: DetailsToMoviesDomainMapper,
+    private val checkFavoriteMovieUseCase: CheckFavoritesUseCase,
     ) : BaseViewModel() {
 
     private val _detailsState = MutableStateFlow<DetailsDomainModel?>(null)
@@ -26,8 +28,12 @@ class DetailsViewModel(
             }
         }
     }
+    suspend fun setFavoriteMovie(details: DetailsDomainModel): Boolean {
+        val result = detailsToMoviesDomainMapper(details)
+        return checkFavoriteMovieUseCase.invoke(result)
+    }
 
-    fun isFavoriteMovie(details: DetailsDomainModel) {
+    fun manageFavoriteMovie(details: DetailsDomainModel) {
         val result = detailsToMoviesDomainMapper(details)
         viewModelScope.launch {
             isFavoriteMovieUseCase.invoke(result)

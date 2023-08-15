@@ -12,4 +12,5 @@ data class DetailsDomainModel(
     val backdropPath: String,
     val popularity: Double,
     val voteCount: Int,
+    val isFavorite: Boolean
 )

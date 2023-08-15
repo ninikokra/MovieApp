@@ -18,7 +18,8 @@ class DetailsDtoToDomainMapper : BaseMapper<DetailsDto, DetailsDomainModel> {
                 releaseDate = releaseDate ?: "",
                 backdropPath = backdropPath ?:"",
                 voteCount = voteCount ?: 0,
-                popularity = popularity ?: 0.0
+                popularity = popularity ?: 0.0,
+                isFavorite = isFavorite,
             )
         }
     }

@@ -53,4 +53,8 @@ class HomeViewModel(
     fun navigationToDetails(movieId: Int) {
         navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(movieId))
     }
+
+    fun navigateToBack() {
+        navigateBack()
+    }
 }

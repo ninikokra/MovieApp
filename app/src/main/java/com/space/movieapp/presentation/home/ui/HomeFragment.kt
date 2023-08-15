@@ -1,6 +1,7 @@
 package com.space.movieapp.presentation.home.ui
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.space.movieapp.R
@@ -35,6 +36,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         setCategory()
         setListeners()
         setupSearchBar()
+        backButton()
         observeMoviesByType(MovieCategory.POPULAR)
     }
 
@@ -121,6 +123,11 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             viewModel.searchMovies(query).collectLatest { pagingData ->
                 moviesPagingAdapter.submitData(pagingData)
             }
+        }
+    }
+    private fun backButton() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            viewModel.navigateToBack()
         }
     }
 }
