@@ -23,7 +23,6 @@ class HomeViewModel(
     private val searchMoviesUseCase: SearchMoviesUseCase,
     private val checkFavoritesUseCase: CheckFavoritesUseCase
 ) : BaseViewModel() {
-
     private var lastSelectedCategory: MovieCategory = MovieCategory.POPULAR
 
     fun getLastSelectedCategory(): MovieCategory {

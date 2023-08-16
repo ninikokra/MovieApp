@@ -47,7 +47,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel>() {
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
-        favoritesAdapter.setOnIconClickListener { movie ->
+        favoritesAdapter.onIconCLickListener = { movie ->
             viewModel.deleteFavMovie(movie)
         }
     }
@@ -57,7 +57,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel>() {
         binding.noMoviesImageView.isVisible(movies.isEmpty())
     }
     private fun navigateToDetails(){
-        favoritesAdapter.setOnItemClickListener {
+        favoritesAdapter.onItemClickListener = {
             viewModel.navigateToDetails(it.id)
         }
     }

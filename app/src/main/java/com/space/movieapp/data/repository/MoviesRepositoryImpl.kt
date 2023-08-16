@@ -61,8 +61,8 @@ class MoviesRepositoryImpl(
     private suspend fun mapPagingData(pagingData: PagingData<MoviesDto.ResultDto>): PagingData<MoviesDomainModel.ResultDomain> {
         return pagingData.map { resultDto ->
             val mappedMovie = moviesDtoToDomainMapper(resultDto)
-            val mappedGenres = resultDto.genreIds!!.mapNotNull { genreId ->
-                genreRepository.getGenres().find { it.id == genreId }?.name
+            val mappedGenres = resultDto.genreIds?.mapNotNull { genreId ->
+                genreRepository.getGenres()?.find { it.id == genreId }?.name
             }
             mappedMovie.copy(genreIds = mappedGenres)
         }

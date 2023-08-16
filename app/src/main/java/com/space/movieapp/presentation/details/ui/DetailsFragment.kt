@@ -28,13 +28,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
         setUpDetails(movieId)
     }
 
-    private fun updateFavoriteIcon(isFavorite: Boolean) {
-        if (isFavorite) {
-            binding.favoritesIcHeart.setImageResource(R.drawable.ic_yello_hearts_filled_big)
-        } else {
-            binding.favoritesIcHeart.setImageResource(R.drawable.ic_yellow_heart_big)
-        }
-    }
+
     private fun setUpDetails(movieId: Int) {
         viewModel.fetchMovieDetails(movieId)
         viewLifecycleOwner.lifecycleScope.launch {
@@ -56,11 +50,11 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
                         }
 
                         val isFavorite = viewModel.setFavoriteMovie(details)
-                        updateFavoriteIcon(isFavorite)
+                        favoritesIcHeart.updateFavoriteIcon(isFavorite)
 
                         favoritesIcHeart.setOnClickListener {
                             viewModel.manageFavoriteMovie(details)
-                            updateFavoriteIcon(!isFavorite)
+                            favoritesIcHeart.updateFavoriteIcon(!isFavorite)
                         }
                     }
                 }

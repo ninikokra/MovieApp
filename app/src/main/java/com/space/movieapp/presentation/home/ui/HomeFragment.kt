@@ -74,6 +74,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             }
         }
 
+
         lifecycleScope.launch {
             viewModel.getMoviesWithFavoriteStatus(movieType.value, PAGE_SIZE).collectLatest { pagingData ->
                 moviesPagingAdapter.submitData(pagingData)
@@ -84,23 +85,22 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     private fun setCategory() {
         with(binding) {
             customSearchView.setPopularMoviesChipClickListener {
-                viewModel.setLastSelectedCategory(MovieCategory.POPULAR)
                 observeMoviesByType(MovieCategory.POPULAR)
+                viewModel.setLastSelectedCategory(MovieCategory.POPULAR)
             }
-
             customSearchView.setTopRatedMoviesChipClickListener {
-                viewModel.setLastSelectedCategory(MovieCategory.TOP_RATED)
                 observeMoviesByType(MovieCategory.TOP_RATED)
+                viewModel.setLastSelectedCategory(MovieCategory.TOP_RATED)
             }
         }
     }
 
 
     private fun setListeners() {
-        moviesPagingAdapter.setOnIconClickListener {
+        moviesPagingAdapter.onIconCLickListener = {
             viewModel.isFavoriteMovie(it)
         }
-        moviesPagingAdapter.setOnItemClickListener {
+        moviesPagingAdapter.onItemClickListener = {
             viewModel.navigationToDetails(it.id)
         }
     }

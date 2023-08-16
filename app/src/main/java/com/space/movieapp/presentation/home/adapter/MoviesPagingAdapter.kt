@@ -14,60 +14,50 @@ class MoviesPagingAdapter :
         DiffCallback()
     ) {
 
-    private var onItemClickListener: ((MoviesDomainModel.ResultDomain) -> Unit)? = null
-    private var onIconCLickListener: ((MoviesDomainModel.ResultDomain) -> Unit)? = null
+    var onItemClickListener: ((MoviesDomainModel.ResultDomain) -> Unit)? = null
 
-    fun setOnIconClickListener(listener: (MoviesDomainModel.ResultDomain) -> Unit) {
-        onIconCLickListener = listener
-    }
-
-
-    fun setOnItemClickListener(listener: (MoviesDomainModel.ResultDomain) -> Unit) {
-        onItemClickListener = listener
-    }
+    var onIconCLickListener: ((MoviesDomainModel.ResultDomain) -> Unit)? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(parent.viewBinding(MoviesItemsBinding::inflate))
+        val viewHolder = MovieViewHolder(parent.viewBinding(MoviesItemsBinding::inflate))
+        viewHolder.binding.setFavoriteHeartIcon.setOnClickListener {
+            getItem(viewHolder.adapterPosition)?.let { movie -> onIconCLickListener?.invoke(movie)
+                viewHolder.binding.setFavoriteHeartIcon.toggleFavoriteHeartIcons(!movie.isFavorite)
+            }
+        }
+        viewHolder.binding.root.setOnClickListener {
+            getItem(viewHolder.adapterPosition)?.let {
+                onItemClickListener?.invoke(it)
+            }
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         getItem(position)?.let { movie ->
-            holder.bind(movie, onItemClickListener,onIconCLickListener)
+            holder.bind(movie)
         }
     }
 
     class MovieViewHolder(
-        private val binding: MoviesItemsBinding,
+         val binding: MoviesItemsBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(
             movie: MoviesDomainModel.ResultDomain,
-            onItemClickListener: ((MoviesDomainModel.ResultDomain) -> Unit)?,
-            onIconCLickListener: ((MoviesDomainModel.ResultDomain) -> Unit)?
-
         ) {
             with(binding) {
                 movieTitleTextview.text = movie.title
                 releasedYearTextview.text = movie.getFormattedReleaseDate()
 
-                if (movie.posterPath.isNotEmpty() && movie.genreIds.isNotEmpty()) {
+                if (movie.posterPath.isNotEmpty() && !movie.genreIds.isNullOrEmpty()) {
                     posterImageView.setImage(movie.getFullPosterUrl())
                     genreOnPosterTextView.text = movie.genreIds.first()
                 } else {
                     posterImageView.setImageDrawableResource(R.drawable.bkg_no_image_available)
                     genreOnPosterTextView.text = itemView.getStringRes(R.string.unknown_genre_text)
                 }
-
                 setFavoriteHeartIcon.toggleFavoriteHeartIcons(movie.isFavorite)
-
-                setFavoriteHeartIcon.setOnClickListener {
-                    setFavoriteHeartIcon.toggleFavoriteHeartIcons(!movie.isFavorite)
-                    onIconCLickListener?.invoke(movie)
-                }
-
-                itemView.setOnClickListener {
-                    onItemClickListener?.invoke(movie)
-                }
             }
         }
     }

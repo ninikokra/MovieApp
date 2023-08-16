@@ -12,7 +12,7 @@ class MoviesUIModel(
     data class ResultUI(
         val adult: Boolean,
         val backdropPath: String,
-        val genreIds: List<String>,
+        val genreIds: List<String>?,
         val originalLanguage: String,
         val originalTitle: String,
         val overview: String,

@@ -41,6 +41,5 @@ data class MoviesDto(
         val voteAverage: Double?,
         @SerializedName("vote_count")
         val voteCount: Int?,
-        val isFavorite: Boolean = false
     )
 }
