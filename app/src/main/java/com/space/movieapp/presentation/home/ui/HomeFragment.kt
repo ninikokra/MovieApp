@@ -75,7 +75,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         }
 
         lifecycleScope.launch {
-            viewModel.getMovies(movieType.value, PAGE_SIZE).collectLatest { pagingData ->
+            viewModel.getMoviesWithFavoriteStatus(movieType.value, PAGE_SIZE).collectLatest { pagingData ->
                 moviesPagingAdapter.submitData(pagingData)
             }
         }
@@ -120,7 +120,7 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
     private fun performSearch(query: String) {
         lifecycleScope.launch {
-            viewModel.searchMovies(query).collectLatest { pagingData ->
+            viewModel.searchMoviesWithFavoriteStatus(query).collectLatest { pagingData ->
                 moviesPagingAdapter.submitData(pagingData)
             }
         }

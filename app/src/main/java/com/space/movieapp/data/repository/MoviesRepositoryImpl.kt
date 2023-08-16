@@ -41,7 +41,7 @@ class MoviesRepositoryImpl(
         }
     }
 
-    override suspend fun searchMovies(query: String): Flow<PagingData<MoviesDomainModel.ResultDomain>> {
+    override fun searchMovies(query: String): Flow<PagingData<MoviesDomainModel.ResultDomain>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20,

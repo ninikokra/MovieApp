@@ -62,9 +62,6 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
                             viewModel.manageFavoriteMovie(details)
                             updateFavoriteIcon(!isFavorite)
                         }
-                        backButton.setOnClickListener {
-                            viewModel.navigateToBack()
-                        }
                     }
                 }
             }
@@ -72,6 +69,9 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
     }
     private fun backButton() {
         requireActivity().onBackPressedDispatcher.addCallback {
+            viewModel.navigateToBack()
+        }
+        binding.backButton.setOnClickListener {
             viewModel.navigateToBack()
         }
     }

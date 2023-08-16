@@ -41,19 +41,11 @@ fun View.getStringRes(@StringRes resId: Int, vararg formatArgs: Any?): String {
     return context.getString(resId, *formatArgs)
 }
 
-fun ImageView.toggleFavoriteHeartIcons() {
-    if (tag == null) {
+fun ImageView.toggleFavoriteHeartIcons(isFavorite: Boolean) {
+    if (isFavorite) {
         setImageDrawableResource(R.drawable.ic_littel_yellow_heart_filled)
-        tag = R.drawable.ic_little_yellow_heart_shape
     } else {
-        val currentDrawableResId = tag as Int
-        val newDrawableResId =
-            if (currentDrawableResId == R.drawable.ic_littel_yellow_heart_filled) {
-                R.drawable.ic_little_yellow_heart_shape
-            } else {
-                R.drawable.ic_littel_yellow_heart_filled
-            }
-        setImageDrawableResource(newDrawableResId)
-        tag = newDrawableResId
+        setImageDrawableResource(R.drawable.ic_little_yellow_heart_shape)
     }
 }
+

@@ -57,10 +57,14 @@ class MoviesPagingAdapter :
                     posterImageView.setImageDrawableResource(R.drawable.bkg_no_image_available)
                     genreOnPosterTextView.text = itemView.getStringRes(R.string.unknown_genre_text)
                 }
+
+                setFavoriteHeartIcon.toggleFavoriteHeartIcons(movie.isFavorite)
+
                 setFavoriteHeartIcon.setOnClickListener {
-                    setFavoriteHeartIcon.toggleFavoriteHeartIcons()
+                    setFavoriteHeartIcon.toggleFavoriteHeartIcons(!movie.isFavorite)
                     onIconCLickListener?.invoke(movie)
                 }
+
                 itemView.setOnClickListener {
                     onItemClickListener?.invoke(movie)
                 }
