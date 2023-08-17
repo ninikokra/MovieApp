@@ -1,11 +1,14 @@
 package com.space.movieapp.presentation.details.ui
 
-import androidx.navigation.fragment.findNavController
+import androidx.activity.addCallback
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.space.movieapp.R
 import com.space.movieapp.databinding.FragmentDetailsBinding
 import com.space.movieapp.presentation.base.BaseFragment
 import com.space.movieapp.presentation.details.vm.DetailsViewModel
-import com.space.movieapp.utils.viewBinding
+import com.space.movieapp.utils.*
+import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 class DetailsFragment : BaseFragment<DetailsViewModel>() {
@@ -17,13 +20,53 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
     override val layout: Int
         get() = R.layout.fragment_details
 
+    private val args: DetailsFragmentArgs by navArgs()
+
     override fun onBind() {
-        naviagateHome()
+        val movieId = args.movieId
+        backButton()
+        setUpDetails(movieId)
     }
 
-    private fun naviagateHome() {
+
+    private fun setUpDetails(movieId: Int) {
+        viewModel.fetchMovieDetails(movieId)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.detailsState.collect { details ->
+                if (details != null) {
+                    with(binding) {
+                        detailsMovieTitleTextView.text = details.originalTitle
+                        ratingTextView.text = details.voteAverage.formatOneDecimal()
+                        durationTextView.text = details.runtime.timeFormatter()
+                        releasedYearTextview.text = details.getFormattedReleaseDate()
+                        aboutMovieTextView.text = details.overview
+
+                        if (details.backdropPath.isNotEmpty() && details.genres.isNotEmpty()) {
+                            favoritesMoviePoster.setImage(details.getFullPosterUrl())
+                            genreTextView.text = details.genres.first()
+                        } else {
+                            favoritesMoviePoster.setImageDrawableResource(R.drawable.bkg_no_image_available)
+                            genreTextView.text = genreTextView.getStringRes(R.string.unknown_genre_text)
+                        }
+
+                        val isFavorite = viewModel.setFavoriteMovie(details)
+                        favoritesIcHeart.updateFavoriteIcon(isFavorite)
+
+                        favoritesIcHeart.setOnClickListener {
+                            viewModel.manageFavoriteMovie(details)
+                            favoritesIcHeart.updateFavoriteIcon(!isFavorite)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    private fun backButton() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            viewModel.navigateToBack()
+        }
         binding.backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_detailsFragment_to_homeFragment)
+            viewModel.navigateToBack()
         }
     }
 }

@@ -5,6 +5,7 @@ import com.space.movieapp.domain.model.MoviesDomainModel
 import com.space.movieapp.domain.usecase.favorites.delete.DeleteFavoriteMovieUseCase
 import com.space.movieapp.domain.usecase.favorites.get_all.GetAllFavoriteMoviesUseCase
 import com.space.movieapp.presentation.base.BaseViewModel
+import com.space.movieapp.presentation.favorites.ui.FavoritesFragmentDirections
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -32,5 +33,11 @@ class FavoritesViewModel(
         viewModelScope.launch {
             deleteFavoriteMovieUseCase(movie.id)
         }
+    }
+    fun navigateToDetails(movieId: Int){
+        navigate(FavoritesFragmentDirections.actionFavoritesFragmentToDetailsFragment(movieId))
+    }
+    fun navigateToBack() {
+        navigateBack()
     }
 }

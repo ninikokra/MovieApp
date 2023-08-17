@@ -9,7 +9,7 @@ import com.space.movieapp.utils.ListTypeConverters
 
 @Database(
     entities = [FavoritesEntity::class],
-    version = 6,
+    version = 9,
 )
 /**
  *  I use ListTypeConverter to convert lists of favorites data types into

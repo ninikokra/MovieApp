@@ -1,6 +1,7 @@
 package com.space.movieapp.presentation.home.ui
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.space.movieapp.R
@@ -31,11 +32,11 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
         get() = R.layout.fragment_home
 
     override fun onBind() {
-        navigationToDetails()
         initRecyclerView()
         setCategory()
-        setFavoriteListener()
+        setListeners()
         setupSearchBar()
+        backButton()
         observeMoviesByType(MovieCategory.POPULAR)
     }
 
@@ -73,8 +74,9 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
             }
         }
 
+
         lifecycleScope.launch {
-            viewModel.getMovies(movieType.value, PAGE_SIZE).collectLatest { pagingData ->
+            viewModel.getMoviesWithFavoriteStatus(movieType.value, PAGE_SIZE).collectLatest { pagingData ->
                 moviesPagingAdapter.submitData(pagingData)
             }
         }
@@ -83,26 +85,23 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
     private fun setCategory() {
         with(binding) {
             customSearchView.setPopularMoviesChipClickListener {
-                viewModel.setLastSelectedCategory(MovieCategory.POPULAR)
                 observeMoviesByType(MovieCategory.POPULAR)
+                viewModel.setLastSelectedCategory(MovieCategory.POPULAR)
             }
-
             customSearchView.setTopRatedMoviesChipClickListener {
-                viewModel.setLastSelectedCategory(MovieCategory.TOP_RATED)
                 observeMoviesByType(MovieCategory.TOP_RATED)
+                viewModel.setLastSelectedCategory(MovieCategory.TOP_RATED)
             }
         }
     }
 
-    private fun navigationToDetails() {
-        binding.movieTextview.setOnClickListener {
-            viewModel.navigationToDetails()
-        }
-    }
 
-    private fun setFavoriteListener() {
-        moviesPagingAdapter.setOnIconClickListener {
-                viewModel.isFavoriteMovie(it)
+    private fun setListeners() {
+        moviesPagingAdapter.onIconCLickListener = {
+            viewModel.isFavoriteMovie(it)
+        }
+        moviesPagingAdapter.onItemClickListener = {
+            viewModel.navigationToDetails(it.id)
         }
     }
 
@@ -121,9 +120,14 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
     private fun performSearch(query: String) {
         lifecycleScope.launch {
-            viewModel.searchMovies(query).collectLatest { pagingData ->
+            viewModel.searchMoviesWithFavoriteStatus(query).collectLatest { pagingData ->
                 moviesPagingAdapter.submitData(pagingData)
             }
+        }
+    }
+    private fun backButton() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            viewModel.navigateToBack()
         }
     }
 }

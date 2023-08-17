@@ -1,5 +1,6 @@
 package com.space.movieapp.presentation.favorites.ui
 
+import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import com.space.movieapp.R
 import com.space.movieapp.databinding.FragmentFavoritesBinding
@@ -29,6 +30,8 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel>() {
     override fun onBind() {
         initRecyclerView()
         observeFavMoviesAndVisibility()
+        navigateToDetails()
+        backButton()
     }
 
     private fun initRecyclerView() {
@@ -44,7 +47,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel>() {
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
-        favoritesAdapter.setOnIconClickListener { movie ->
+        favoritesAdapter.onIconCLickListener = { movie ->
             viewModel.deleteFavMovie(movie)
         }
     }
@@ -52,5 +55,15 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel>() {
     private fun updateUIForMovies(movies: List<MoviesDomainModel.ResultDomain>) {
         favoritesAdapter.submitList(movies)
         binding.noMoviesImageView.isVisible(movies.isEmpty())
+    }
+    private fun navigateToDetails(){
+        favoritesAdapter.onItemClickListener = {
+            viewModel.navigateToDetails(it.id)
+        }
+    }
+    private fun backButton() {
+        requireActivity().onBackPressedDispatcher.addCallback {
+            viewModel.navigateToBack()
+        }
     }
 }

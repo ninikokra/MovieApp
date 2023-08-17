@@ -14,45 +14,50 @@ class MoviesPagingAdapter :
         DiffCallback()
     ) {
 
-    private var onFavoriteIconCLick: ((MoviesDomainModel.ResultDomain) -> Unit)? = null
+    var onItemClickListener: ((MoviesDomainModel.ResultDomain) -> Unit)? = null
 
-    fun setOnIconClickListener(listener: (MoviesDomainModel.ResultDomain) -> Unit) {
-        onFavoriteIconCLick = listener
-    }
+    var onIconCLickListener: ((MoviesDomainModel.ResultDomain) -> Unit)? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(parent.viewBinding(MoviesItemsBinding::inflate))
+        val viewHolder = MovieViewHolder(parent.viewBinding(MoviesItemsBinding::inflate))
+        viewHolder.binding.setFavoriteHeartIcon.setOnClickListener {
+            getItem(viewHolder.adapterPosition)?.let { movie -> onIconCLickListener?.invoke(movie)
+                viewHolder.binding.setFavoriteHeartIcon.toggleFavoriteHeartIcons(!movie.isFavorite)
+            }
+        }
+        viewHolder.binding.root.setOnClickListener {
+            getItem(viewHolder.adapterPosition)?.let {
+                onItemClickListener?.invoke(it)
+            }
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         getItem(position)?.let { movie ->
-            holder.bind(movie, onFavoriteIconCLick)
+            holder.bind(movie)
         }
     }
 
     class MovieViewHolder(
-        private val binding: MoviesItemsBinding,
+         val binding: MoviesItemsBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(
             movie: MoviesDomainModel.ResultDomain,
-            onFavoriteClicked: ((MoviesDomainModel.ResultDomain) -> Unit)?
         ) {
             with(binding) {
                 movieTitleTextview.text = movie.title
                 releasedYearTextview.text = movie.getFormattedReleaseDate()
 
-                if (movie.posterPath.isNotEmpty() && movie.genreIds.isNotEmpty()) {
+                if (movie.posterPath.isNotEmpty() && !movie.genreIds.isNullOrEmpty()) {
                     posterImageView.setImage(movie.getFullPosterUrl())
                     genreOnPosterTextView.text = movie.genreIds.first()
                 } else {
-                    val placeholderDrawable = ContextCompat.getDrawable(itemView.context, R.drawable.bkg_no_image_available)
-                    posterImageView.setImageDrawable(placeholderDrawable)
-                    genreOnPosterTextView.text = itemView.context.getString(R.string.unknown_genre_text)
+                    posterImageView.setImageDrawableResource(R.drawable.bkg_no_image_available)
+                    genreOnPosterTextView.text = itemView.getStringRes(R.string.unknown_genre_text)
                 }
-                setFavoriteHeartIcon.setOnClickListener {
-                    setFavoriteHeartIcon.toggleFavoriteHeartIcons()
-                    onFavoriteClicked?.invoke(movie)
-                }
+                setFavoriteHeartIcon.toggleFavoriteHeartIcons(movie.isFavorite)
             }
         }
     }
