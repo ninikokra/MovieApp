@@ -12,7 +12,7 @@ val viewModelModule = module {
         SplashScreenViewModel()
     }
     viewModel{
-        HomeViewModel(get(),get())
+        HomeViewModel(get(),get(),get())
     }
     viewModel{
         FavoritesViewModel(get(),get())

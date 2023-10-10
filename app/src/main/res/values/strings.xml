@@ -12,9 +12,10 @@
     <string name="about_movie">About Movie</string>
     <string name="top_rated_movies_text">Top Rated Movies</string>
     <string name="popular_movies_text">Popular Movies</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="data_can_t_be_loaded_text">Data can’t be loaded</string>
     <string name="internet_connection_or_some_other_server_error_text">internet connection or some other server error</string>
     <string name="refresh_text">Refresh</string>
+    <string name="unknown_genre_text">Unknown Genre</string>
+
 </resources>

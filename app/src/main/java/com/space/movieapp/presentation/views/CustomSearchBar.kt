@@ -1,9 +1,12 @@
 package com.space.movieapp.presentation.views
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -12,6 +15,7 @@ import androidx.core.view.isVisible
 import com.google.android.material.chip.Chip
 import com.space.movieapp.R
 import com.space.movieapp.databinding.CustomSearchBarBinding
+import com.space.movieapp.utils.OnQuerySubmitListener
 import com.space.movieapp.utils.isVisible
 
 class CustomSearchBar @JvmOverloads constructor(
@@ -23,6 +27,12 @@ class CustomSearchBar @JvmOverloads constructor(
     }
     private var isSearchButtonActive = false
 
+    private var onQuerySubmitListener: OnQuerySubmitListener? = null
+
+    fun setOnQuerySubmitListener(listener: OnQuerySubmitListener) {
+        onQuerySubmitListener = listener
+    }
+
     init {
         setupSearchBarEditText()
         setupSearchSelectionButton()
@@ -33,7 +43,11 @@ class CustomSearchBar @JvmOverloads constructor(
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.searchSelectionButton.setBackgroundResource(R.drawable.ic_cancel)
+                onQuerySubmitListener?.onQuerySubmitted(s.toString())
+
+                with(binding) {
+                    searchSelectionButton.setBackgroundResource(R.drawable.ic_cancel)
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -43,22 +57,18 @@ class CustomSearchBar @JvmOverloads constructor(
     private fun setupSearchSelectionButton() {
         with(binding) {
             searchSelectionButton.setOnClickListener {
+                searchBarEditText.setText("")
+                searchBarEditText.clearFocus()
                 isSearchButtonActive = !isSearchButtonActive
 
                 genresChipGroup.isVisible(isSearchButtonActive)
-                    searchSelectionButton.setBackgroundResource(if (isSearchButtonActive){
+                searchSelectionButton.setBackgroundResource(
+                    if (isSearchButtonActive) {
                         R.drawable.ic_selected_search
-                    } else{
+                    } else {
                         R.drawable.ic_unselected_search
-                    })
-
-              /*  if (isSearchButtonActive) {
-                    searchSelectionButton.setBackgroundResource(R.drawable.ic_selected_search)
-                    genresChipGroup.isVisible(true)
-                } else {
-                    searchSelectionButton.setBackgroundResource(R.drawable.ic_unselected_search)
-                    genresChipGroup.isVisible(false)
-                }*/
+                    }
+                )
             }
         }
     }

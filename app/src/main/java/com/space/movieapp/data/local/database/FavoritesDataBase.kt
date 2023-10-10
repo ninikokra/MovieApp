@@ -11,7 +11,6 @@ import com.space.movieapp.utils.ListTypeConverters
     entities = [FavoritesEntity::class],
     version = 6,
 )
-
 /**
  *  I use ListTypeConverter to convert lists of favorites data types into
  *  format that room can store in dataBase
